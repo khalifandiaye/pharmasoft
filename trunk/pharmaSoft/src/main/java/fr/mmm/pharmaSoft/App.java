@@ -15,11 +15,11 @@ public class App
     {
         System.out.println( "Hello World!" );
          MedicamentDao dao= new MedicamentDao();
-        Medicament med = new Medicament("effaralgan",23.0,"ee"," description");
-        Medicament med1 = new Medicament("gddb",458.0,"ee"," description 1");
-       med1.setMedicamentId(9);
-        dao.create(med1);
-        dao.create(med);
+//        Medicament med = new Medicament("effaralgan",23.0,"ee"," description");
+//        Medicament med1 = new Medicament("gddb",458.0,"ee"," description 1");
+//       med1.setMedicamentId(9);
+//        dao.create(med1);
+//        dao.create(med);
         
         List<Medicament> results = dao.findAll();
         System.out.println(results);
