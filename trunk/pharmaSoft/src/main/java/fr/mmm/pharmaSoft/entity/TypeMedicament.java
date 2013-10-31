@@ -1,5 +1,11 @@
 package fr.mmm.pharmaSoft.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 
 /**
@@ -7,11 +13,18 @@ package fr.mmm.pharmaSoft.entity;
  * @version 1.0
  * @created 29-oct.-2013 17:28:05
  */
+
+@Entity
+@Table(name="type_medicament")
 public class TypeMedicament {
-
-	private int noTypeMedicament;
-	private int libelle;
-
+	
+	@Id
+	@GeneratedValue
+	private Integer noTypeMedicament;
+	@Column(name="libelle")
+	private String libelle;
+	
+	
 	public TypeMedicament(){
 
 	}
@@ -25,7 +38,7 @@ public class TypeMedicament {
 
 	}
 
-	public int getLibelle(){
+	public String getLibelle(){
 		return libelle;
 	}
 
@@ -33,11 +46,11 @@ public class TypeMedicament {
 	 * 
 	 * @param newVal    newVal
 	 */
-	public void setLibelle(int newVal){
+	public void setLibelle(String newVal){
 		libelle = newVal;
 	}
 
-	public int getNoTypeMedicament(){
+	public Integer getNoTypeMedicament(){
 		return noTypeMedicament;
 	}
 
@@ -45,8 +58,15 @@ public class TypeMedicament {
 	 * 
 	 * @param newVal    newVal
 	 */
-	public void setNoTypeMedicament(int newVal){
+	public void setNoTypeMedicament(Integer newVal){
 		noTypeMedicament = newVal;
 	}
+
+	@Override
+	public String toString() {
+		return "TypeMedicament [noTypeMedicament=" + noTypeMedicament
+				+ ", libelle=" + libelle + "]";
+	}
+	
 
 }

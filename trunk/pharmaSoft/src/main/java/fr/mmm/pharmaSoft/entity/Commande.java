@@ -1,7 +1,20 @@
 package fr.mmm.pharmaSoft.entity;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 
@@ -10,17 +23,32 @@ import java.util.List;
  * @version 1.0
  * @created 29-oct.-2013 17:27:56
  */
+@Entity
+@Table(name="commande")
 public class Commande {
-
-	private int noCommande;
-	private double montantTotal;
+	@Id
+	@GeneratedValue
+	private Integer noCommande;
+	@Column(name="montantTotal")
+	private Double montantTotal;
+	@Column(name="valide")
 	private boolean valide;
-	private List<Medicament> medicaments;
+	
+	
+	
+	@Column(name="dateCommande")
 	private Date dateCommande;
+	
 	/**
 	 * vendeur effectuant la commande
 	 */
+	@ManyToOne
 	private Employe vendeur;
+	
+	 @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	 @JoinTable(name = "commande_medicament", joinColumns = { @JoinColumn(name = "no_commandes") }, 
+	 inverseJoinColumns = { @JoinColumn(name = "no_medicament") })
+    private Set<Medicament> medicaments= new HashSet<Medicament>();
 
 	public Commande(){
 
@@ -35,7 +63,7 @@ public class Commande {
 
 	}
 
-	public int getNoCommande(){
+	public Integer getNoCommande(){
 		return noCommande;
 	}
 
@@ -43,11 +71,11 @@ public class Commande {
 	 * 
 	 * @param newVal    newVal
 	 */
-	public void setNoCommande(int newVal){
+	public void setNoCommande(Integer newVal){
 		noCommande = newVal;
 	}
 
-	public double getMontantTotal(){
+	public Double getMontantTotal(){
 		return montantTotal;
 	}
 
@@ -55,7 +83,7 @@ public class Commande {
 	 * 
 	 * @param newVal    newVal
 	 */
-	public void setMontantTotal(double newVal){
+	public void setMontantTotal(Double newVal){
 		montantTotal = newVal;
 	}
 
@@ -82,18 +110,26 @@ public class Commande {
 	 * vendeur effectuant la commande
 	 * 
 	 * @param newVal
-	 */
+	 */ 
 	public void setVendeur(Employe newVal){
 		vendeur = newVal;
 	}
 
-	public List<Medicament> getMedicaments() {
+	public Set<Medicament> getMedicaments() {
 		return medicaments;
 	}
 
-	public void setMedicaments(List<Medicament> medicaments) {
+	public void setMedicaments(Set<Medicament> medicaments) {
 		this.medicaments = medicaments;
 	}
+	
+	public void addMedicament(Medicament medicament) {
+		if (this.medicaments == null) {
+            this.medicaments = new HashSet<Medicament>();
+        }
+        
+        this.medicaments.add(medicament);
+	  }
 
 	public Date getDateCommande() {
 		return dateCommande;
@@ -103,4 +139,12 @@ public class Commande {
 		this.dateCommande = dateCommande;
 	}
 
+	@Override
+	public String toString() {
+		return "Commande [noCommande=" + noCommande + ", montantTotal="
+				+ montantTotal + ", valide=" + valide + ", dateCommande="
+				+ dateCommande + ", vendeur=" + vendeur + ", medicaments="
+				+ medicaments + "]";
+	}
+	
 }
