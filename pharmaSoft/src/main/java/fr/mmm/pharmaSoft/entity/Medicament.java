@@ -1,118 +1,111 @@
 package fr.mmm.pharmaSoft.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="MEDICAMENT")
+
+/**
+ * medicament
+ * @version 1.0
+ * @created 29-oct.-2013 17:27:56
+ */
 public class Medicament {
-	
-	@Id
-	@GeneratedValue
-	private Integer medicamentId;
 
-	@Column(name="nom")
-	private String nom;
-	
-	@Column(name="prix")
-	private Double prix;
-	
-	@Column(name="type")
-	private String type;
-	
-	@Column(name="description")
+	private int noMedicament;
+	private String libelle;
+	private String code;
 	private String description;
-	
-	
+	private double prix;
+	/**
+	 * type de medicament
+	 */
+	private TypeMedicament type;
 
-	public Medicament() {
-		
+	public Medicament(){
+
 	}
 
-	
+	/**
+	 * 
+	 * @exception Throwable Throwable
+	 */
+	public void finalize()
+	  throws Throwable{
 
-
-	public Medicament(String nom, Double prix, String type, String description) {
-		super();
-		this.nom = nom;
-		this.prix = prix;
-		this.type = type;
-		this.description = description;
 	}
 
-
-
-
-	public Integer getMedicamentId() {
-		return medicamentId;
+	public int getNoMedicament(){
+		return noMedicament;
 	}
 
-
-
-	public void setMedicamentId(Integer medicamentId) {
-		this.medicamentId = medicamentId;
+	/**
+	 * 
+	 * @param newVal
+	 */
+	public void setNoMedicament(int newVal){
+		noMedicament = newVal;
 	}
 
-
-
-	public String getNom() {
-		return nom;
+	public String getLibelle(){
+		return libelle;
 	}
 
-
-
-	public void setNom(String nom) {
-		this.nom = nom;
+	/**
+	 * 
+	 * @param newVal
+	 */
+	public void setLibelle(String newVal){
+		libelle = newVal;
 	}
 
-
-
-	public Double getPrix() {
-		return prix;
+	public String getCode(){
+		return code;
 	}
 
-
-
-	public void setPrix(Double prix) {
-		this.prix = prix;
+	/**
+	 * 
+	 * @param newVal
+	 */
+	public void setCode(String newVal){
+		code = newVal;
 	}
 
-
-
-	public String getType() {
-		return type;
-	}
-
-
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-
-
-	public String getDescription() {
+	public String getDescription(){
 		return description;
 	}
 
-
-
-	public void setDescription(String description) {
-		this.description = description;
+	/**
+	 * 
+	 * @param newVal
+	 */
+	public void setDescription(String newVal){
+		description = newVal;
 	}
 
-
-
-
-	@Override
-	public String toString() {
-		return "Medicament [medicamentId=" + medicamentId + ", nom=" + nom
-				+ ", prix=" + prix + ", type=" + type + ", description="
-				+ description + "]";
+	public double getPrix(){
+		return prix;
 	}
-	
 
+	/**
+	 * 
+	 * @param newVal
+	 */
+	public void setPrix(double newVal){
+		prix = newVal;
 	}
+
+	/**
+	 * type de medicament
+	 */
+	public TypeMedicament getType(){
+		return type;
+	}
+
+	/**
+	 * type de medicament
+	 * 
+	 * @param newVal
+	 */
+	public void setType(TypeMedicament newVal){
+		type = newVal;
+	}
+
+}
