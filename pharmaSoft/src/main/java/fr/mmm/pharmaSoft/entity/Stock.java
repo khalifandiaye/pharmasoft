@@ -2,6 +2,13 @@ package fr.mmm.pharmaSoft.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 
 
 /**
@@ -9,11 +16,19 @@ import java.util.Date;
  * @version 1.0
  * @created 29-oct.-2013 17:28:05
  */
+@Entity
+@Table(name="stock")
 public class Stock {
-
-	private int noStock;
-	private int quantite;
+	@Id
+	@GeneratedValue
+	private Integer noStock;
+	@Column(name="quantite")
+	private Integer quantite;
+	
+	@ManyToOne
 	private Medicament medicament;
+	
+	@Column(name="dateperemption")
 	private Date datePeremption;
 
 	public Stock(){
@@ -29,7 +44,7 @@ public class Stock {
 
 	}
 
-	public int getNoStock(){
+	public Integer getNoStock(){
 		return noStock;
 	}
 
@@ -37,11 +52,11 @@ public class Stock {
 	 * 
 	 * @param newVal
 	 */
-	public void setNoStock(int newVal){
+	public void setNoStock(Integer newVal){
 		noStock = newVal;
 	}
 
-	public int getQuantite(){
+	public Integer getQuantite(){
 		return quantite;
 	}
 
@@ -49,7 +64,7 @@ public class Stock {
 	 * 
 	 * @param newVal
 	 */
-	public void setQuantite(int newVal){
+	public void setQuantite(Integer newVal){
 		quantite = newVal;
 	}
 
@@ -75,6 +90,13 @@ public class Stock {
 	 */
 	public void setDatePeremption(Date newVal){
 		datePeremption = newVal;
+	}
+
+	@Override
+	public String toString() {
+		return "Stock [noStock=" + noStock + ", quantite=" + quantite
+				+ ", medicament=" + medicament + ", datePeremption="
+				+ datePeremption + "]";
 	}
 
 }

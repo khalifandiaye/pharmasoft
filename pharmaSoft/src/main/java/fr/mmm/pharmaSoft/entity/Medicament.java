@@ -1,5 +1,12 @@
 package fr.mmm.pharmaSoft.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 
 
 /**
@@ -7,16 +14,27 @@ package fr.mmm.pharmaSoft.entity;
  * @version 1.0
  * @created 29-oct.-2013 17:27:56
  */
+@Entity
+@Table(name="medicament")
 public class Medicament {
 
-	private int noMedicament;
+	@Id
+	@GeneratedValue
+	private Integer noMedicament;
+	@Column(name="libelle")
 	private String libelle;
+	
+	@Column(name="code")
 	private String code;
+	@Column(name="description")
 	private String description;
-	private double prix;
+	
+	@Column(name="prix")
+	private Double prix;
 	/**
 	 * type de medicament
 	 */
+	@ManyToOne
 	private TypeMedicament type;
 
 	public Medicament(){
@@ -32,7 +50,7 @@ public class Medicament {
 
 	}
 
-	public int getNoMedicament(){
+	public Integer getNoMedicament(){
 		return noMedicament;
 	}
 
@@ -40,7 +58,7 @@ public class Medicament {
 	 * 
 	 * @param newVal
 	 */
-	public void setNoMedicament(int newVal){
+	public void setNoMedicament(Integer newVal){
 		noMedicament = newVal;
 	}
 
@@ -80,7 +98,7 @@ public class Medicament {
 		description = newVal;
 	}
 
-	public double getPrix(){
+	public Double getPrix(){
 		return prix;
 	}
 
@@ -88,7 +106,7 @@ public class Medicament {
 	 * 
 	 * @param newVal
 	 */
-	public void setPrix(double newVal){
+	public void setPrix(Double newVal){
 		prix = newVal;
 	}
 
@@ -108,4 +126,12 @@ public class Medicament {
 		type = newVal;
 	}
 
+	@Override
+	public String toString() {
+		return "Medicament [noMedicament=" + noMedicament + ", libelle="
+				+ libelle + ", code=" + code + ", description=" + description
+				+ ", prix=" + prix + ", type=" + type + "]";
+	}
+	
+	
 }

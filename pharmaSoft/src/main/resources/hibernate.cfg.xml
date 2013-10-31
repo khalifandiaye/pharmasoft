@@ -16,7 +16,11 @@
      <property name="show_sql">true</property><property name="format_sql">true</property>
      <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
      <!--create the database schema on startup if required -->
-     <property name="hbm2ddl.auto">update</property>
+     <property name="hbm2ddl.auto">create-drop</property>
      <mapping class="fr.mmm.pharmaSoft.entity.Medicament"></mapping>
+     <mapping class="fr.mmm.pharmaSoft.entity.Commande"></mapping>
+     <mapping class="fr.mmm.pharmaSoft.entity.TypeMedicament"></mapping>
+     <mapping class="fr.mmm.pharmaSoft.entity.Stock"></mapping>
+     <mapping class="fr.mmm.pharmaSoft.entity.Employe" ></mapping>
   </session-factory>
 </hibernate-configuration>

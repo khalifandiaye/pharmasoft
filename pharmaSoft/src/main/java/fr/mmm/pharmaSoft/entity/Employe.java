@@ -1,5 +1,11 @@
 package fr.mmm.pharmaSoft.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 
 /**
@@ -7,10 +13,15 @@ package fr.mmm.pharmaSoft.entity;
  * @version 1.0
  * @created 29-oct.-2013 17:27:56
  */
+@Entity
+@Table(name="employe")
 public class Employe {
-
-	private int noEmploye;
+	@Id
+	@GeneratedValue
+	private Integer noEmploye;
+	@Column(name="nom")
 	private String nom;
+	@Column(name="prenom")
 	private String prenom;
 
 	public Employe(){
@@ -50,4 +61,18 @@ public class Employe {
 		prenom = newVal;
 	}
 
+	public Integer getNoEmploye() {
+		return noEmploye;
+	}
+
+	public void setNoEmploye(Integer noEmploye) {
+		this.noEmploye = noEmploye;
+	}
+
+	@Override
+	public String toString() {
+		return "Employe [noEmploye=" + noEmploye + ", nom=" + nom + ", prenom="
+				+ prenom + "]";
+	}
+	
 }
