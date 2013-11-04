@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,7 +13,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.JButton;
+
+import fr.mmm.pharmaSoft.entity.Medicament;
 
 public class MedicamentFenetre {
 
@@ -20,6 +22,7 @@ public class MedicamentFenetre {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private Medicament medicament;
 
 	/**
 	 * Launch the application.
@@ -117,5 +120,13 @@ public class MedicamentFenetre {
 		btnEnregistrer.setBackground(Color.WHITE);
 		btnEnregistrer.setBounds(27, 420, 112, 23);
 		frame.getContentPane().add(btnEnregistrer);
+	}
+
+	public Medicament getMedicament() {
+		return medicament;
+	}
+
+	public void setMedicament(Medicament medicament) {
+		this.medicament = medicament;
 	}
 }

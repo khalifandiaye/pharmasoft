@@ -4,9 +4,13 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import fr.mmm.pharmaSoft.dao.Daos;
+import fr.mmm.pharmaSoft.entity.Medicament;
 import fr.mmm.pharmaSoft.views.MedicamentFenetre;
 
 public class MedicamentAction extends AbstractAction{
+	
+	private Daos pharmaDao;
 	
 	
 	/**
@@ -32,13 +36,15 @@ public class MedicamentAction extends AbstractAction{
 	}
 
 	private void modifier(MedicamentFenetre medFenetre2) {
-		// TODO Auto-generated method stub
+		Medicament medicament=medFenetre2.getMedicament();
+		pharmaDao.getMedicamentDao().update(medicament);
 		
 	}
 
 
 	private void creer(MedicamentFenetre medFenetre2) {
-		// TODO Auto-generated method stub
+		Medicament medicament=medFenetre2.getMedicament();
+		pharmaDao.getMedicamentDao().create(medicament);
 		
 	}
 
@@ -59,6 +65,16 @@ public class MedicamentAction extends AbstractAction{
 
 	public void setTypeAction(String typeAction) {
 		this.typeAction = typeAction;
+	}
+
+
+	public Daos getPharmaDao() {
+		return pharmaDao;
+	}
+
+
+	public void setPharmaDao(Daos pharmaDao) {
+		this.pharmaDao = pharmaDao;
 	}
 	
 	

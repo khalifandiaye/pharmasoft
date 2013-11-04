@@ -3,7 +3,10 @@ package fr.mmm.pharmaSoft.views;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,28 +17,23 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 
-public class TypeMedicamentFenetre {
+import fr.mmm.pharmaSoft.dao.Daos;
+import fr.mmm.pharmaSoft.dao.TypeMedicamentDao;
+import fr.mmm.pharmaSoft.entity.Medicament;
+import fr.mmm.pharmaSoft.entity.TypeMedicament;
 
-	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+public class TypeMedicamentFenetre extends JFrame implements ActionListener{
 
 	/**
-	 * Launch the application.
+	 * 
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TypeMedicamentFenetre window = new TypeMedicamentFenetre();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private static final long serialVersionUID = 1L;
+	private JTextField textField;
+	private TypeMedicament typeMedicament;
+	private TypeMedicamentDao typeMedicamentDao= new TypeMedicamentDao();
+	private Daos pharmaDao;
+	private Integer idTypeMed;
+
 
 	/**
 	 * Create the application.
@@ -43,79 +41,141 @@ public class TypeMedicamentFenetre {
 	public TypeMedicamentFenetre() {
 		initialize();
 	}
+	
+	/**
+	 * Create the application.
+	 */
+	public TypeMedicamentFenetre(Integer idTypeMed) {
+		this.idTypeMed=idTypeMed;
+		initialize();
+	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(0, 250, 154));
-		frame.setBounds(100, 100,800, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		
+		this.getContentPane().setBackground(new Color(0, 250, 154));
+		this.setBounds(100, 100,800, 600);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		frame.getContentPane().add(panel);
+		this.getContentPane().add(panel);
 		panel.setBounds(225, 11, 300, 30);
 		//panel_1.setSize(420, 420);
 		//panel.setLayout(null);
 		
-		JLabel lblcreaMedic = new JLabel("Création d'un médicament");
+		JLabel lblcreaMedic = new JLabel("Création d'un type de médicament");
 		lblcreaMedic.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 17));
 		panel.add(lblcreaMedic);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
-		frame.getContentPane().add(panel_1);
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cr\u00E9ation / Modification de M\u00E9dicament", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		//panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		panel_1.setBounds(27, 64, 660, 335);
-		//panel_1.setSize(420, 420);
+		this.getContentPane().add(panel_1);
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cr\u00E9ation / Modification d'un type de M\u00E9dicament", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBounds(27, 64, 660, 150);
 		panel_1.setLayout(null);
 		
-		JLabel lblNomDuMdicament = new JLabel("Nom du médicament");
-		lblNomDuMdicament.setBounds(43, 53, 119, 14);
-		panel_1.add(lblNomDuMdicament);
+		JLabel lblTypeMdicament = new JLabel("Libellé");
+		lblTypeMdicament.setBounds(43, 50, 119, 14);
+		panel_1.add(lblTypeMdicament);
 		
 		textField = new JTextField();
 		textField.setBounds(263, 50, 150, 20);
 		panel_1.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblPrix = new JLabel("Prix");
-		lblPrix.setBounds(43, 174, 119, 14);
-		panel_1.add(lblPrix);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(263, 110, 150, 20);
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
-		
-		JLabel lblTypeDeMdicament = new JLabel("Type de médicament");
-		lblTypeDeMdicament.setBounds(43, 113, 119, 14);
-		panel_1.add(lblTypeDeMdicament);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(263, 168, 150, 20);
-		panel_1.add(textField_2);
-		textField_2.setColumns(10);
-		
-		JLabel lblDescription = new JLabel("Description ");
-		lblDescription.setBounds(43, 259, 119, 14);
-		panel_1.add(lblDescription);
-		
-		JTextArea txtrDcrire = new JTextArea();
-		
-		txtrDcrire.setRows(8);
-		txtrDcrire.setText("décrire ");
-		txtrDcrire.setBounds(263, 234, 321, 68);
-		txtrDcrire.setBorder(BorderFactory.createLineBorder(null));
-		panel_1.add(txtrDcrire);
-		
 		JButton btnEnregistrer = new JButton("Enregistrer");
 		btnEnregistrer.setBackground(Color.WHITE);
-		btnEnregistrer.setBounds(27, 420, 112, 23);
-		frame.getContentPane().add(btnEnregistrer);
+		btnEnregistrer.setBounds(27, 220, 112, 23);
+		btnEnregistrer.addActionListener(this);
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		
+		
+		if(this.getIdTypeMed()==null || this.getIdTypeMed()==0){
+		btnEnregistrer.setActionCommand("creer");
+		} else {
+			if(idTypeMed !=null) {
+				this.setTypeMedicament(typeMedicamentDao.findByPk(this.getIdTypeMed()));
+			}
+			
+			if(this.getTypeMedicament()!=null) {
+				textField.setText(this.getTypeMedicament().getLibelle());
+			}else {
+				textField.setText("Erreur de chargement du type de medicament ");
+			}
+			
+			btnAnnuler.setBackground(Color.WHITE);
+			btnAnnuler.setBounds(150, 220, 112, 23);
+			btnAnnuler.addActionListener(this);
+			btnAnnuler.setActionCommand("annuler");
+			this.getContentPane().add(btnAnnuler);
+			
+			btnEnregistrer.setActionCommand("modifier");
+		}
+		
+		
+		
+		
+		this.getContentPane().add(btnEnregistrer);
+	}
+
+	public TypeMedicament getTypeMedicament() {
+		return typeMedicament;
+	}
+
+	public void setTypeMedicament(TypeMedicament typeMedicament) {
+		this.typeMedicament = typeMedicament;
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		String foward="";
+		TypeMedicament typeMed= this.getTypeMedicament();
+		if(e.getActionCommand().equals("creer")) {
+			typeMed=new TypeMedicament();
+			typeMed.setLibelle(textField.getText());
+			typeMed=this.creer(typeMed);
+			foward="creerSucces";
+			
+		} else if(e.getActionCommand().equals("modifier")){
+			
+			typeMed.setLibelle(textField.getText());
+			typeMed=this.modifier(typeMed);
+			foward="modifierSucces";
+		}
+		if(foward.equals("creerSucces")){
+			ConsulterTypeMedicamentFenetre frameConculter=new ConsulterTypeMedicamentFenetre(typeMed.getNoTypeMedicament());
+			frameConculter.setVisible(true);
+			this.dispose();
+		}else if (foward.equals("modifierSucces")) {
+			
+		}else if(e.getActionCommand().equals("annuler")){
+			ConsulterTypeMedicamentFenetre frameConculter=new ConsulterTypeMedicamentFenetre(typeMed.getNoTypeMedicament());
+			frameConculter.setVisible(true);
+			this.dispose();
+		}
+		
+		
+	}
+	
+	private TypeMedicament modifier(TypeMedicament typeMed) {
+		return this.typeMedicamentDao.update(typeMed);
+	}
+
+
+	private TypeMedicament creer(TypeMedicament typeMed) {
+		
+		return this.typeMedicamentDao.create(typeMed);
+	}
+
+	public Integer getIdTypeMed() {
+		return idTypeMed;
+	}
+
+	public void setIdTypeMed(Integer idTypeMed) {
+		this.idTypeMed = idTypeMed;
 	}
 }
