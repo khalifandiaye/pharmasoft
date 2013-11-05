@@ -1,5 +1,7 @@
 package fr.mmm.pharmaSoft;
 
+import fr.mmm.pharmaSoft.dao.TypeMedicamentDao;
+import fr.mmm.pharmaSoft.entity.TypeMedicament;
 import fr.mmm.pharmaSoft.views.ListeTypeMedicamentFenetre;
 
 /**
@@ -42,6 +44,10 @@ public class App
 //        System.out.println(commandes);
     	
     	//TypeMedicamentFenetre frame = new TypeMedicamentFenetre();
+    	 TypeMedicamentDao typeDao= new TypeMedicamentDao();
+       TypeMedicament typeMed= new TypeMedicament();
+       typeMed.setLibelle("Type 556");
+       typeDao.create(typeMed);
     	ListeTypeMedicamentFenetre frame = new ListeTypeMedicamentFenetre();
     	frame.setVisible(true);
     }

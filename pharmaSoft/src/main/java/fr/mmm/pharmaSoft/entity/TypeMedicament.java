@@ -3,6 +3,7 @@ package fr.mmm.pharmaSoft.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,7 +20,7 @@ import javax.persistence.Table;
 public class TypeMedicament {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer noTypeMedicament;
 	@Column(name="libelle")
 	private String libelle;
