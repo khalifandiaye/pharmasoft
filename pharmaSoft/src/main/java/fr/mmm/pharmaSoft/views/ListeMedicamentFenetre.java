@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,12 +21,14 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import net.sf.jga.swing.GenericTableModel;
-import fr.mmm.pharmaSoft.dao.TypeMedicamentDao;
+import fr.mmm.pharmaSoft.dao.MedicamentDao;
+import fr.mmm.pharmaSoft.dto.MedicamentDTO;
 import fr.mmm.pharmaSoft.entity.TypeMedicament;
 
-public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener{
+public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 
 	
 	/**
@@ -35,19 +36,19 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private TypeMedicament typeMedicament;
+	
 	
 	private Integer idSelected;
 	
 	private JLabel libelleTypeMed;
 	
-	private TypeMedicamentDao typeMedicamentDao= new TypeMedicamentDao();
+	private MedicamentDao medicamentDao= new MedicamentDao();
 	
 
 	/**
 	 * Create the application.
 	 */
-	public ListeTypeMedicamentFenetre() {
+	public ListeMedicamentFenetre() {
 		initialize();
 	}
 	
@@ -81,20 +82,31 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 		//panel_1.setBounds(27, 64, 660, 150);
 		panel_1.setLayout(new BorderLayout());
 		
-		List<TypeMedicament> list=this.typeMedicamentDao.findAll();
+		List<MedicamentDTO> list=this.medicamentDao.findAll();
 		
 		
 		if(list!=null && !list.isEmpty()) {
-			System.out.println("aa");
-			GenericTableModel<TypeMedicament> tabModel = new GenericTableModel<TypeMedicament>(TypeMedicament.class,list);
-			tabModel.addColumn(Integer.class, "NoTypeMedicament");
+			GenericTableModel<MedicamentDTO> tabModel = new GenericTableModel<MedicamentDTO>(MedicamentDTO.class,list);
+			tabModel.addColumn(Integer.class, "NoMedicament");
 			tabModel.addColumn(String.class, "Libelle");
+			tabModel.addColumn(String.class, "Code");
+			tabModel.addColumn(String.class, "Description");
+			tabModel.addColumn(Double.class, "Prix");
+			tabModel.addColumn(String.class, "LibelleTypeMedicament");
 			final JTable tableau=new JTable(tabModel, tabModel.getColumnModel());
 			tableau.getColumnModel().getColumn(0).setHeaderValue("Numéro");
 			tableau.getColumnModel().getColumn(1).setHeaderValue("Libellé");
+			tableau.getColumnModel().getColumn(2).setHeaderValue("Code");
+			tableau.getColumnModel().getColumn(3).setHeaderValue("Description");
+			tableau.getColumnModel().getColumn(4).setHeaderValue("Prix");
+			tableau.getColumnModel().getColumn(5).setHeaderValue("Type de Medicament");
+			
 			tableau.getTableHeader().setBackground(new Color(0, 250, 154));
 			tableau.setPreferredScrollableViewportSize(new Dimension(500, tableau.getRowHeight()*tableau.getRowCount()));
-			
+			DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+			leftRenderer.setHorizontalAlignment( JLabel.LEFT );
+			tableau.setDefaultRenderer(Integer.class, leftRenderer);
+			tableau.setDefaultRenderer(Double.class, leftRenderer);
 			ListSelectionModel ligneSelectionModel = tableau.getSelectionModel();
 			ligneSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			ligneSelectionModel.addListSelectionListener(new ListSelectionListener() {
@@ -102,7 +114,7 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 				public void valueChanged(ListSelectionEvent selected) {
 					int row=tableau.getSelectedRow();
 					int idTypeMedicament=(Integer)tableau.getValueAt(row, 0);
-					ListeTypeMedicamentFenetre.this.idSelected=idTypeMedicament;
+					ListeMedicamentFenetre.this.idSelected=idTypeMedicament;
 				}
 			});
 			     
@@ -137,13 +149,6 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 		
 	}
 
-	public TypeMedicament getTypeMedicament() {
-		return typeMedicament;
-	}
-
-	public void setTypeMedicament(TypeMedicament typeMedicament) {
-		this.typeMedicament = typeMedicament;
-	}
 
 	public JLabel getLibelleTypeMed() {
 		return libelleTypeMed;
@@ -171,10 +176,10 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 		    	if(this.idSelected != null) {
 					TypeMedicament type=new TypeMedicament();
 					type.setNoTypeMedicament(this.idSelected);
-					this.typeMedicamentDao.delete(type);
+					//this.medicamentDao.delete(type);
 				}
 				// on recharge la page
-				new ListeTypeMedicamentFenetre().setVisible(true);
+				new ListeMedicamentFenetre().setVisible(true);
 				this.dispose();
 		    } else if (response == JOptionPane.CLOSED_OPTION) {
 		      

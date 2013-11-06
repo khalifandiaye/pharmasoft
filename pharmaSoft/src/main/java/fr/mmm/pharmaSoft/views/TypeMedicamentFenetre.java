@@ -1,25 +1,20 @@
 package fr.mmm.pharmaSoft.views;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.JButton;
 
 import fr.mmm.pharmaSoft.dao.Daos;
 import fr.mmm.pharmaSoft.dao.TypeMedicamentDao;
-import fr.mmm.pharmaSoft.entity.Medicament;
 import fr.mmm.pharmaSoft.entity.TypeMedicament;
 
 public class TypeMedicamentFenetre extends JFrame implements ActionListener{
@@ -92,7 +87,7 @@ public class TypeMedicamentFenetre extends JFrame implements ActionListener{
 		btnEnregistrer.setBounds(27, 220, 112, 23);
 		btnEnregistrer.addActionListener(this);
 		
-		JButton btnAnnuler = new JButton("Annuler");
+		
 		
 		
 		if(this.getIdTypeMed()==null || this.getIdTypeMed()==0){
@@ -108,15 +103,14 @@ public class TypeMedicamentFenetre extends JFrame implements ActionListener{
 				textField.setText("Erreur de chargement du type de medicament ");
 			}
 			
-			btnAnnuler.setBackground(Color.WHITE);
-			btnAnnuler.setBounds(150, 220, 112, 23);
-			btnAnnuler.addActionListener(this);
-			btnAnnuler.setActionCommand("annuler");
-			this.getContentPane().add(btnAnnuler);
-			
 			btnEnregistrer.setActionCommand("modifier");
 		}
-		
+		JButton btnAnnuler = new JButton("Retour");
+		btnAnnuler.setBackground(Color.WHITE);
+		btnAnnuler.setBounds(150, 220, 112, 23);
+		btnAnnuler.addActionListener(this);
+		btnAnnuler.setActionCommand("annuler");
+		this.getContentPane().add(btnAnnuler);
 		
 		
 		
@@ -147,14 +141,16 @@ public class TypeMedicamentFenetre extends JFrame implements ActionListener{
 			foward="modifierSucces";
 		}
 		if(foward.equals("creerSucces")){
-			ConsulterTypeMedicamentFenetre frameConculter=new ConsulterTypeMedicamentFenetre(typeMed.getNoTypeMedicament());
-			frameConculter.setVisible(true);
+			ListeTypeMedicamentFenetre frameListes=new ListeTypeMedicamentFenetre();
+			frameListes.setVisible(true);
 			this.dispose();
 		}else if (foward.equals("modifierSucces")) {
-			
+			ListeTypeMedicamentFenetre frameListes=new ListeTypeMedicamentFenetre();
+			frameListes.setVisible(true);
+			this.dispose();
 		}else if(e.getActionCommand().equals("annuler")){
-			ConsulterTypeMedicamentFenetre frameConculter=new ConsulterTypeMedicamentFenetre(typeMed.getNoTypeMedicament());
-			frameConculter.setVisible(true);
+			ListeTypeMedicamentFenetre frameListes=new ListeTypeMedicamentFenetre();
+			frameListes.setVisible(true);
 			this.dispose();
 		}
 		
