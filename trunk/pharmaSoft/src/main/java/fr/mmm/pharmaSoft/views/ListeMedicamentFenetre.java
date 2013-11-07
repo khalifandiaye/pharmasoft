@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import net.sf.jga.swing.GenericTableModel;
 import fr.mmm.pharmaSoft.dao.MedicamentDao;
 import fr.mmm.pharmaSoft.dto.MedicamentDTO;
-import fr.mmm.pharmaSoft.entity.TypeMedicament;
+import fr.mmm.pharmaSoft.entity.Medicament;
 
 public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 
@@ -161,8 +161,8 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		if(event.getActionCommand().equals("modifier")){
 			if(this.idSelected != null) {
-				TypeMedicamentFenetre typeMedFenetre = new TypeMedicamentFenetre(this.idSelected);
-				typeMedFenetre.setVisible(true);
+				MedicamentFenetre medFenetre = new MedicamentFenetre(this.idSelected);
+				medFenetre.setVisible(true);
 				this.dispose();
 			}
 		}else if(event.getActionCommand().equals("supprimer")){
@@ -174,9 +174,9 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 		    	
 		    } else if (response == JOptionPane.YES_OPTION) {
 		    	if(this.idSelected != null) {
-					TypeMedicament type=new TypeMedicament();
-					type.setNoTypeMedicament(this.idSelected);
-					//this.medicamentDao.delete(type);
+					Medicament type=new Medicament();
+					type.setNoMedicament(this.idSelected);
+					this.medicamentDao.delete(type);
 				}
 				// on recharge la page
 				new ListeMedicamentFenetre().setVisible(true);
@@ -186,8 +186,8 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 		    }
 			
 		} else if(event.getActionCommand().equals("creer")){
-			TypeMedicamentFenetre typeMedFenetre = new TypeMedicamentFenetre();
-			typeMedFenetre.setVisible(true);
+			MedicamentFenetre medFenetre = new MedicamentFenetre();
+			medFenetre.setVisible(true);
 			this.dispose();
 		}
 		
