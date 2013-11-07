@@ -26,6 +26,7 @@ public class Medicament {
 	
 	@Column(name="code")
 	private String code;
+	
 	@Column(name="description")
 	private String description;
 	
@@ -36,7 +37,7 @@ public class Medicament {
 	 */
 	@ManyToOne
 	private TypeMedicament type;
-
+	
 	public Medicament(){
 
 	}
