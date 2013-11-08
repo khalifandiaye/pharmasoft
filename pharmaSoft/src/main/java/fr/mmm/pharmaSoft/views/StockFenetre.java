@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import fr.mmm.pharmaSoft.dao.StockDao;
 import fr.mmm.pharmaSoft.dto.ComboBoxDTO;
 import fr.mmm.pharmaSoft.dto.MedicamentDTO;
 import fr.mmm.pharmaSoft.entity.Medicament;
+import fr.mmm.pharmaSoft.entity.Stock;
 import fr.mmm.pharmaSoft.entity.TypeMedicament;
 
 
@@ -50,7 +52,7 @@ public class StockFenetre extends JFrame implements ActionListener{
 	
 	private JTextField txtQuantite;
 	private JTextField txtCode;
-	private JComboBox comboTypeMedicament;
+	private JComboBox comboMedicament;
 	private JTextArea txtDescription;
 	private StockDao stock= new StockDao();
 	private MedicamentDao medicamentDao=new MedicamentDao();
@@ -120,20 +122,20 @@ public class StockFenetre extends JFrame implements ActionListener{
 			
 			
 			
-			comboTypeMedicament = new JComboBox( listCombo.toArray(new ComboBoxDTO[]{}));
-			comboTypeMedicament.setBounds(263, 50, 150, 20);
+			comboMedicament = new JComboBox( listCombo.toArray(new ComboBoxDTO[]{}));
+			comboMedicament.setBounds(263, 50, 150, 20);
 			
-			comboTypeMedicament.addActionListener(new ActionListener() {
+			comboMedicament.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Integer index=((ComboBoxDTO)comboTypeMedicament.getSelectedItem()).getValue();
+					Integer index=((ComboBoxDTO)comboMedicament.getSelectedItem()).getValue();
 					txtDescription.setText(mapMedic.get(index));
 				}
 			});
 			
-			comboTypeMedicament.setEditable(true);
-			AutoCompletion ac = new AutoCompletion(comboTypeMedicament);
+			comboMedicament.setEditable(true);
+			AutoCompletion ac = new AutoCompletion(comboMedicament);
 			ac.setStrict(false);
-			panel_1.add(comboTypeMedicament);
+			panel_1.add(comboMedicament);
 		}
 		
 		txtDescription = new JTextArea();
@@ -173,22 +175,17 @@ public class StockFenetre extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("creer")) {
-			Medicament medicament = new Medicament();
+			Stock stock = new Stock();
 			if(!GenericValidator.isBlankOrNull(txtQuantite.getText()) && GenericValidator.isDouble( txtQuantite.getText())) {
-				medicament.setPrix(Double.parseDouble(txtQuantite.getText()));
+				stock.setQuantite(Integer.parseInt(txtQuantite.getText()));
 			}
-			ComboBoxDTO combo= (ComboBoxDTO) comboTypeMedicament.getSelectedItem();
-			TypeMedicament type=new TypeMedicament();
-			type.setNoTypeMedicament(combo.getValue());
-			medicament.setType(type);
-			if(!GenericValidator.isBlankOrNull(txtNomMedicament.getText())){
-				medicament.setLibelle(txtNomMedicament.getText());
-			}
-			if(!GenericValidator.isBlankOrNull(txtCode.getText())){
-				medicament.setCode(txtCode.getText());
-			}
-			if(!GenericValidator.isBlankOrNull(txtDescription.getText())){
-				medicament.setDescription(txtDescription.getText());
+			ComboBoxDTO combo= (ComboBoxDTO) comboMedicament.getSelectedItem();
+			Medicament medicament=new Medicament();
+			medicament.setNoMedicament(combo.getValue());
+			stock.setMedicament(medicament);
+			
+			if(!GenericValidator.isBlankOrNull(txtPeremption.getText())){
+				stock.setDatePeremption(new Date());
 			}
 			medicament=this.medicamentDao.create(medicament);
 		} else if(e.getActionCommand().equals("modifier")){
@@ -197,7 +194,7 @@ public class StockFenetre extends JFrame implements ActionListener{
 				if(!GenericValidator.isBlankOrNull(txtQuantite.getText()) && GenericValidator.isDouble( txtQuantite.getText())) {
 					medicament.setPrix(Double.parseDouble(txtQuantite.getText()));
 				}
-				ComboBoxDTO combo= (ComboBoxDTO) comboTypeMedicament.getSelectedItem();
+				ComboBoxDTO combo= (ComboBoxDTO) comboMedicament.getSelectedItem();
 				TypeMedicament type=new TypeMedicament();
 				type.setNoTypeMedicament(combo.getValue());
 				medicament.setType(type);
