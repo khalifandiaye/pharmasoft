@@ -2,10 +2,15 @@ package fr.mmm.pharmaSoft.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.transform.Transformers;
 
 import fr.mmm.pharmaSoft.commun.HibernateUtil;
+import fr.mmm.pharmaSoft.dto.StockDTO;
 import fr.mmm.pharmaSoft.entity.Stock;
 
 public class StockDao {
@@ -53,12 +58,20 @@ public class StockDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Stock> findAll (){
-		List<Stock> results=null;
+	public List<StockDTO> findAll (){
+		List<StockDTO> results=null;
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx=s.beginTransaction();
-		
-		results=s.createCriteria(Stock.class).list();
+		Criteria criteria = s.createCriteria(Stock.class, "stock");
+		criteria.createCriteria("medicament", "medicament");
+		ProjectionList projectionList = Projections.projectionList()
+                .add(Projections.property("stock.noStock"), "noStock")
+                .add(Projections.property("medicament.libelle"), "libelleMedicament")
+                .add(Projections.property("stock.quantite"), "quantite")
+                .add(Projections.property("stock.datePeremption"), "datePeremption");
+		criteria.setProjection(projectionList);
+		criteria.setResultTransformer(Transformers.aliasToBean(StockDTO.class));
+		results=criteria.list();
 		tx.commit();
 		s.close();
 		
