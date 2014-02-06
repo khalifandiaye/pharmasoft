@@ -124,12 +124,14 @@ public class MedicamentFenetre extends JFrame implements ActionListener{
 			listCombo.add(new ComboBoxDTO(typeMedicament.getLibelle(), typeMedicament.getNoTypeMedicament()));
 		}
 		
+		comboTypeMedicament = new JComboBox();
 		if(listCombo !=null && !listCombo.isEmpty()){
 			comboTypeMedicament = new JComboBox(listCombo.toArray(new ComboBoxDTO[]{}));
-			comboTypeMedicament.setBounds(263, 100, 150, 20);
-			panel_1.add(comboTypeMedicament);
+			
 		}
 		
+		comboTypeMedicament.setBounds(263, 100, 150, 20);
+		panel_1.add(comboTypeMedicament);
 		
 		
 		JLabel lblCode = new JLabel("Code du médicament");
@@ -181,10 +183,13 @@ public class MedicamentFenetre extends JFrame implements ActionListener{
 			if(!GenericValidator.isBlankOrNull(txtPrix.getText()) && GenericValidator.isDouble( txtPrix.getText())) {
 				medicament.setPrix(Double.parseDouble(txtPrix.getText()));
 			}
-			ComboBoxDTO combo= (ComboBoxDTO) comboTypeMedicament.getSelectedItem();
-			TypeMedicament type=new TypeMedicament();
-			type.setNoTypeMedicament(combo.getValue());
-			medicament.setType(type);
+			if(comboTypeMedicament!=null && comboTypeMedicament.getSelectedItem()!=null){
+				ComboBoxDTO combo= (ComboBoxDTO) comboTypeMedicament.getSelectedItem();
+				TypeMedicament type=new TypeMedicament();
+				type.setNoTypeMedicament(combo.getValue());
+				medicament.setType(type);
+			}
+			
 			if(!GenericValidator.isBlankOrNull(txtNomMedicament.getText())){
 				medicament.setLibelle(txtNomMedicament.getText());
 			}

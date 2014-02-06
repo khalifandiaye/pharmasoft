@@ -31,7 +31,6 @@ import fr.mmm.pharmaSoft.dto.ComboBoxDTO;
 import fr.mmm.pharmaSoft.dto.MedicamentDTO;
 import fr.mmm.pharmaSoft.entity.Medicament;
 import fr.mmm.pharmaSoft.entity.Stock;
-import fr.mmm.pharmaSoft.entity.TypeMedicament;
 
 
 
@@ -54,7 +53,7 @@ public class StockFenetre extends JFrame implements ActionListener{
 	private JTextField txtCode;
 	private JComboBox comboMedicament;
 	private JTextArea txtDescription;
-	private StockDao stock= new StockDao();
+	private StockDao stockDao= new StockDao();
 	private MedicamentDao medicamentDao=new MedicamentDao();
 	private Integer id;
 	private JTextField txtPeremption;
@@ -163,6 +162,17 @@ public class StockFenetre extends JFrame implements ActionListener{
 		panel_1.add(txtPeremption);
 		txtQuantite.setColumns(10);
 		
+		//Cas Modification
+		if(this.getId()!=null) {
+			Stock stock= this.stockDao.findByPk(this.getId());
+			txtQuantite.setText(stock.getQuantite().toString());
+			txtPeremption.setText(stock.getDatePeremption().toString());
+			if(stock.getMedicament()!=null){
+				comboMedicament.setEditable(true);
+				comboMedicament.setSelectedItem(new ComboBoxDTO(stock.getMedicament().getLibelle(), stock.getMedicament().getNoMedicament()));
+			}
+		
+		}
 		JButton btnEnregistrer = new JButton("Enregistrer");
 		btnEnregistrer.setBackground(Color.WHITE);
 		btnEnregistrer.setBounds(27, 420, 112, 23);
@@ -179,39 +189,38 @@ public class StockFenetre extends JFrame implements ActionListener{
 			if(!GenericValidator.isBlankOrNull(txtQuantite.getText()) && GenericValidator.isDouble( txtQuantite.getText())) {
 				stock.setQuantite(Integer.parseInt(txtQuantite.getText()));
 			}
-			ComboBoxDTO combo= (ComboBoxDTO) comboMedicament.getSelectedItem();
-			Medicament medicament=new Medicament();
-			medicament.setNoMedicament(combo.getValue());
-			stock.setMedicament(medicament);
+			if(comboMedicament!=null && comboMedicament.getSelectedItem()!=null){
+				ComboBoxDTO combo= (ComboBoxDTO) comboMedicament.getSelectedItem();
+				Medicament medicament=new Medicament();
+				medicament.setNoMedicament(combo.getValue());
+				stock.setMedicament(medicament);
+			}
+			
 			
 			if(!GenericValidator.isBlankOrNull(txtPeremption.getText())){
 				stock.setDatePeremption(new Date());
 			}
-			medicament=this.medicamentDao.create(medicament);
+			stock=this.stockDao.create(stock);
 		} else if(e.getActionCommand().equals("modifier")){
 			if(this.getId()!=null) {
-				Medicament medicament =this.medicamentDao.findByPk(this.getId());
+				Stock stock =this.stockDao.findByPk(this.getId());
 				if(!GenericValidator.isBlankOrNull(txtQuantite.getText()) && GenericValidator.isDouble( txtQuantite.getText())) {
-					medicament.setPrix(Double.parseDouble(txtQuantite.getText()));
+					stock.setQuantite(Integer.parseInt(txtQuantite.getText()));
 				}
-				ComboBoxDTO combo= (ComboBoxDTO) comboMedicament.getSelectedItem();
-				TypeMedicament type=new TypeMedicament();
-				type.setNoTypeMedicament(combo.getValue());
-				medicament.setType(type);
-				if(!GenericValidator.isBlankOrNull(txtNomMedicament.getText())){
-					medicament.setLibelle(txtNomMedicament.getText());
+				if(comboMedicament!=null && comboMedicament.getSelectedItem()!=null){
+					ComboBoxDTO combo= (ComboBoxDTO) comboMedicament.getSelectedItem();
+					Medicament medicament=new Medicament();
+					medicament.setNoMedicament(combo.getValue());
+					stock.setMedicament(medicament);
 				}
-				if(!GenericValidator.isBlankOrNull(txtCode.getText())){
-					medicament.setCode(txtCode.getText());
+				if(!GenericValidator.isBlankOrNull(txtPeremption.getText())){
+					stock.setDatePeremption(new Date());
 				}
-				if(!GenericValidator.isBlankOrNull(txtDescription.getText())){
-					medicament.setDescription(txtDescription.getText());
-				}
-				medicament=this.medicamentDao.update(medicament);
+				stock=this.stockDao.update(stock);
 			}
 			
 		}
-		new ListeMedicamentFenetre().setVisible(true);
+		new ListeStockFenetre().setVisible(true);
 		this.dispose();
 		
 	}
