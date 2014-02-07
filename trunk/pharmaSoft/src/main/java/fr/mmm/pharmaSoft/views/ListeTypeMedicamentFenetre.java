@@ -26,6 +26,7 @@ import javax.swing.event.ListSelectionListener;
 import net.sf.jga.swing.GenericTableModel;
 import fr.mmm.pharmaSoft.dao.TypeMedicamentDao;
 import fr.mmm.pharmaSoft.entity.TypeMedicament;
+import fr.mmm.pharmaSoft.presentation.LanceurMenuMulticolore;
 
 public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener{
 
@@ -133,6 +134,13 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 			btnSupprimer.setActionCommand("supprimer");
 			btnSupprimer.addActionListener(this);
 			panelBtn.add(btnSupprimer);
+			
+			JButton btnMenuPrincipal = new JButton("Menu Principal");
+			btnMenuPrincipal.setBackground(Color.WHITE);
+			//btnSupprimer.setBounds(150, 150, 112, 23);
+			btnMenuPrincipal.setActionCommand("menuPrincipal");
+			btnMenuPrincipal.addActionListener(this);
+			panelBtn.add(btnMenuPrincipal);
 		}
 		
 	}
@@ -183,6 +191,10 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 		} else if(event.getActionCommand().equals("creer")){
 			TypeMedicamentFenetre typeMedFenetre = new TypeMedicamentFenetre();
 			typeMedFenetre.setVisible(true);
+			this.dispose();
+		}else if(event.getActionCommand().equals("menuPrincipal")){
+			LanceurMenuMulticolore menuPrincipalFenetre = new LanceurMenuMulticolore();
+			menuPrincipalFenetre.setVisible(true);
 			this.dispose();
 		}
 		

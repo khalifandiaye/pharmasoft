@@ -2,11 +2,18 @@ package fr.mmm.pharmaSoft.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.transform.Transformers;
 
 import fr.mmm.pharmaSoft.commun.HibernateUtil;
+import fr.mmm.pharmaSoft.dto.CommandeDTO;
+import fr.mmm.pharmaSoft.dto.MedicamentDTO;
 import fr.mmm.pharmaSoft.entity.Commande;
+import fr.mmm.pharmaSoft.entity.Medicament;
 
 public class CommandeDao {
 	
@@ -53,12 +60,20 @@ public class CommandeDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Commande> findAll (){
-		List<Commande> results=null;
+	public List<CommandeDTO> findAll (){
+		List<CommandeDTO> results=null;
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx=s.beginTransaction();
-		
-		results=s.createCriteria(Commande.class).list();
+		Criteria criteria = s.createCriteria(Commande.class, "commande");
+		//criteria.createCriteria("medicament", "medicament");
+		ProjectionList projectionList = Projections.projectionList()
+                .add(Projections.property("commande.noCommande"), "noCommande")
+                .add(Projections.property("commande.dateCommande"), "dateCommande")
+                .add(Projections.property("commande.montantTotal"), "montantCommande");
+                
+		criteria.setProjection(projectionList);
+		criteria.setResultTransformer(Transformers.aliasToBean(CommandeDTO.class));
+		results=criteria.list();
 		tx.commit();
 		s.close();
 		

@@ -2,6 +2,7 @@ package fr.mmm.pharmaSoft.presentation;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,10 +14,14 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
-import fr.mmm.pharmaSoft.views.MedicamentFenetre;
-import fr.mmm.pharmaSoft.views.StockFenetre;
+import fr.mmm.pharmaSoft.views.ListeCommandeFenetre;
+import fr.mmm.pharmaSoft.views.ListeMedicamentFenetre;
+import fr.mmm.pharmaSoft.views.ListeStockFenetre;
+import fr.mmm.pharmaSoft.views.ListeTypeMedicamentFenetre;
 
 /**
  * Classe qui definit une bulle
@@ -72,17 +77,27 @@ public class ElementMenu extends JPanel {
 		addMouseListener(new MouseListener() {
 
 			public void mouseClicked(MouseEvent e) {
+				Component component = (Component) e.getSource();
+		        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
 				if("medicament".equals(code)){
-					MedicamentFenetre frameListes=new MedicamentFenetre();
+					ListeMedicamentFenetre frameListes=new ListeMedicamentFenetre();
 					frameListes.setVisible(true);
-				}else if("employe".equals(code)){
-					MedicamentFenetre frameListes=new MedicamentFenetre();
+					 frame.dispose();
+				}else if("typeMedicament".equals(code)){
+					ListeTypeMedicamentFenetre frameListes=new ListeTypeMedicamentFenetre();
 					frameListes.setVisible(true);
+					 frame.dispose();
 				}else if("stock".equals(code)){
-					StockFenetre frameListes=new StockFenetre();
+					ListeStockFenetre frameListes=new ListeStockFenetre();
 					frameListes.setVisible(true);
+					 frame.dispose();
+				}else if("commandes".equals(code)){
+					ListeCommandeFenetre frameListes=new ListeCommandeFenetre();
+					frameListes.setVisible(true);
+					 frame.dispose();
 				}
 				
+		       
 				
 			}
 
