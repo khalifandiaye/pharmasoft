@@ -27,6 +27,7 @@ import net.sf.jga.swing.GenericTableModel;
 import fr.mmm.pharmaSoft.dao.MedicamentDao;
 import fr.mmm.pharmaSoft.dto.MedicamentDTO;
 import fr.mmm.pharmaSoft.entity.Medicament;
+import fr.mmm.pharmaSoft.presentation.LanceurMenuMulticolore;
 
 public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 
@@ -71,18 +72,20 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 		//panel_1.setSize(420, 420);
 		//panel.setLayout(null);
 		
-		JLabel lblcreaMedic = new JLabel("Création d'un type de médicament");
-		lblcreaMedic.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 17));
-		panel.add(lblcreaMedic);
+		JLabel lblcreaCommande = new JLabel("Création d'un médicament");
+		lblcreaCommande.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 17));
+		panel.add(lblcreaCommande);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
 		getContentPane().add(panel_1,BorderLayout.CENTER);
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Liste des types de M\u00E9dicament", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Liste des  M\u00E9dicaments", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		//panel_1.setBounds(27, 64, 660, 150);
 		panel_1.setLayout(new BorderLayout());
 		
 		List<MedicamentDTO> list=this.medicamentDao.findAll();
+		
+		
 		
 		
 		if(list!=null && !list.isEmpty()) {
@@ -145,6 +148,14 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 			btnSupprimer.setActionCommand("supprimer");
 			btnSupprimer.addActionListener(this);
 			panelBtn.add(btnSupprimer);
+			
+			
+			JButton btnMenuPrincipal = new JButton("Menu Principal");
+			btnMenuPrincipal.setBackground(Color.WHITE);
+			//btnSupprimer.setBounds(150, 150, 112, 23);
+			btnMenuPrincipal.setActionCommand("menuPrincipal");
+			btnMenuPrincipal.addActionListener(this);
+			panelBtn.add(btnMenuPrincipal);
 		}
 		
 	}
@@ -167,7 +178,7 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 			}
 		}else if(event.getActionCommand().equals("supprimer")){
 			//JDialog.setDefaultLookAndFeelDecorated(true);
-		    int response = JOptionPane.showConfirmDialog(null, "Voulez vous supprimer cet type de medicament?", "Confirmation",
+		    int response = JOptionPane.showConfirmDialog(null, "Voulez vous supprimer ce medicament?", "Confirmation",
 		        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		    if (response == JOptionPane.NO_OPTION) {
 		     
@@ -188,6 +199,10 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 		} else if(event.getActionCommand().equals("creer")){
 			MedicamentFenetre medFenetre = new MedicamentFenetre();
 			medFenetre.setVisible(true);
+			this.dispose();
+		}else if(event.getActionCommand().equals("menuPrincipal")){
+			LanceurMenuMulticolore menuPrincipalFenetre = new LanceurMenuMulticolore();
+			menuPrincipalFenetre.setVisible(true);
 			this.dispose();
 		}
 		
