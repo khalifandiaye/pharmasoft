@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,11 +23,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import net.sf.jga.swing.GenericTableModel;
-import fr.mmm.pharmaSoft.dao.TypeMedicamentDao;
-import fr.mmm.pharmaSoft.entity.TypeMedicament;
-import fr.mmm.pharmaSoft.presentation.LanceurMenuMulticolore;
+import fr.mmm.pharmaSoft.dao.EmployeDao;
+import fr.mmm.pharmaSoft.entity.Employe;
 
-public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener{
+public class ListeEmployeFenetre extends JFrame implements ActionListener{
 
 	
 	/**
@@ -36,19 +34,19 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private TypeMedicament typeMedicament;
+	private Employe employe;
 	
 	private Integer idSelected;
 	
-	private JLabel libelleTypeMed;
 	
-	private TypeMedicamentDao typeMedicamentDao= new TypeMedicamentDao();
+	
+	private EmployeDao employeDao= new EmployeDao();
 	
 
 	/**
 	 * Create the application.
 	 */
-	public ListeTypeMedicamentFenetre() {
+	public ListeEmployeFenetre() {
 		initialize();
 	}
 	
@@ -71,38 +69,30 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 		//panel_1.setSize(420, 420);
 		//panel.setLayout(null);
 		
-		JLabel lblcreaMedic = new JLabel("Création d'un type de médicament");
+		JLabel lblcreaMedic = new JLabel("Création d'un employé");
 		lblcreaMedic.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 17));
 		panel.add(lblcreaMedic);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
 		getContentPane().add(panel_1,BorderLayout.CENTER);
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Liste des types de M\u00E9dicament", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Liste des types de Employé", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		//panel_1.setBounds(27, 64, 660, 150);
 		panel_1.setLayout(new BorderLayout());
 		
-		List<TypeMedicament> list=this.typeMedicamentDao.findAll();
-		JPanel panelBtn = new JPanel();
-		panelBtn.setBackground(Color.WHITE);
-		getContentPane().add(panelBtn,BorderLayout.SOUTH);
+		List<Employe> list=this.employeDao.findAll();
 		
-		panelBtn.setLayout(new FlowLayout());
-		JButton btnCreer = new JButton("Nouveau");
-		btnCreer.setBackground(Color.WHITE);
-		//btnCreer.setBounds(150, 50, 112, 23);
-		btnCreer.setActionCommand("creer");
-		btnCreer.addActionListener(this);
-		panelBtn.add(btnCreer);
 		
 		if(list!=null && !list.isEmpty()) {
 			
-			GenericTableModel<TypeMedicament> tabModel = new GenericTableModel<TypeMedicament>(TypeMedicament.class,list);
-			tabModel.addColumn(Integer.class, "NoTypeMedicament");
-			tabModel.addColumn(String.class, "Libelle");
+			GenericTableModel<Employe> tabModel = new GenericTableModel<Employe>(Employe.class,list);
+			tabModel.addColumn(Integer.class, "NoEmploye");
+			tabModel.addColumn(String.class, "Nom");
+			tabModel.addColumn(String.class, "Prenom");
 			final JTable tableau=new JTable(tabModel, tabModel.getColumnModel());
 			tableau.getColumnModel().getColumn(0).setHeaderValue("Numéro");
-			tableau.getColumnModel().getColumn(1).setHeaderValue("Libellé");
+			tableau.getColumnModel().getColumn(1).setHeaderValue("Nom");
+			tableau.getColumnModel().getColumn(2).setHeaderValue("Prénom");
 			tableau.getTableHeader().setBackground(new Color(0, 250, 154));
 			tableau.setPreferredScrollableViewportSize(new Dimension(500, tableau.getRowHeight()*tableau.getRowCount()));
 			
@@ -112,12 +102,25 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 				
 				public void valueChanged(ListSelectionEvent selected) {
 					int row=tableau.getSelectedRow();
-					int idTypeMedicament=(Integer)tableau.getValueAt(row, 0);
-					ListeTypeMedicamentFenetre.this.idSelected=idTypeMedicament;
+					int idEmploye=(Integer)tableau.getValueAt(row, 0);
+					ListeEmployeFenetre.this.idSelected=idEmploye;
 				}
 			});
 			     
 			panel_1.add(new JScrollPane(tableau));
+			
+			JPanel panelBtn = new JPanel();
+			panelBtn.setBackground(Color.WHITE);
+			getContentPane().add(panelBtn,BorderLayout.SOUTH);
+			
+			panelBtn.setLayout(new FlowLayout());
+			JButton btnCreer = new JButton("Nouveau");
+			btnCreer.setBackground(Color.WHITE);
+			//btnCreer.setBounds(150, 50, 112, 23);
+			btnCreer.setActionCommand("creer");
+			btnCreer.addActionListener(this);
+			panelBtn.add(btnCreer);
+			
 			JButton btnModifier = new JButton("Modifier");
 			btnModifier.setBackground(Color.WHITE);
 			//btnModifier.setBounds(150, 100, 112, 23);
@@ -131,41 +134,24 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 			btnSupprimer.setActionCommand("supprimer");
 			btnSupprimer.addActionListener(this);
 			panelBtn.add(btnSupprimer);
-			
-			
 		}
 		
-		
-		
-		JButton btnMenuPrincipal = new JButton("Menu Principal");
-		btnMenuPrincipal.setBackground(Color.WHITE);
-		//btnSupprimer.setBounds(150, 150, 112, 23);
-		btnMenuPrincipal.setActionCommand("menuPrincipal");
-		btnMenuPrincipal.addActionListener(this);
-		panelBtn.add(btnMenuPrincipal);
-		
 	}
 
-	public TypeMedicament getTypeMedicament() {
-		return typeMedicament;
+	public Employe getEmploye() {
+		return employe;
 	}
 
-	public void setTypeMedicament(TypeMedicament typeMedicament) {
-		this.typeMedicament = typeMedicament;
+	public void setEmploye(Employe employe) {
+		this.employe = employe;
 	}
 
-	public JLabel getLibelleTypeMed() {
-		return libelleTypeMed;
-	}
-
-	public void setLibelleTypeMed(JLabel libelleTypeMed) {
-		this.libelleTypeMed = libelleTypeMed;
-	}
+	
 
 	public void actionPerformed(ActionEvent event) {
 		if(event.getActionCommand().equals("modifier")){
 			if(this.idSelected != null) {
-				TypeMedicamentFenetre typeMedFenetre = new TypeMedicamentFenetre(this.idSelected);
+				EmployeFenetre typeMedFenetre = new EmployeFenetre(this.idSelected);
 				typeMedFenetre.setVisible(true);
 				this.dispose();
 			}
@@ -178,24 +164,20 @@ public class ListeTypeMedicamentFenetre extends JFrame implements ActionListener
 		    	
 		    } else if (response == JOptionPane.YES_OPTION) {
 		    	if(this.idSelected != null) {
-					TypeMedicament type=new TypeMedicament();
-					type.setNoTypeMedicament(this.idSelected);
-					this.typeMedicamentDao.delete(type);
+					Employe type=new Employe();
+					type.setNoEmploye(this.idSelected);
+					this.employeDao.delete(type);
 				}
 				// on recharge la page
-				new ListeTypeMedicamentFenetre().setVisible(true);
+				new ListeEmployeFenetre().setVisible(true);
 				this.dispose();
 		    } else if (response == JOptionPane.CLOSED_OPTION) {
 		      
 		    }
 			
 		} else if(event.getActionCommand().equals("creer")){
-			TypeMedicamentFenetre typeMedFenetre = new TypeMedicamentFenetre();
+			EmployeFenetre typeMedFenetre = new EmployeFenetre();
 			typeMedFenetre.setVisible(true);
-			this.dispose();
-		}else if(event.getActionCommand().equals("menuPrincipal")){
-			LanceurMenuMulticolore menuPrincipalFenetre = new LanceurMenuMulticolore();
-			menuPrincipalFenetre.setVisible(true);
 			this.dispose();
 		}
 		

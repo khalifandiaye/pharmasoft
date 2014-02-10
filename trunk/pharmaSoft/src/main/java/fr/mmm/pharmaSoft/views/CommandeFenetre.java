@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -123,6 +124,7 @@ public class CommandeFenetre extends JFrame implements ActionListener{
 
 		List<MedicamentDTO> list=this.medicamentDao.findAll();
 		List<ComboBoxDTO> listCombo=new ArrayList<ComboBoxDTO>();
+		listCombo.add(0, new ComboBoxDTO("", -1));
 		final Map<Integer,String> mapMedic=new HashMap<Integer,String>();
 		for (MedicamentDTO medicament : list) {
 			listCombo.add(new ComboBoxDTO(medicament.getLibelle(), medicament.getNoMedicament()));
@@ -130,12 +132,9 @@ public class CommandeFenetre extends JFrame implements ActionListener{
 					+" "+medicament.getLibelleTypeMedicament()+" "+medicament.getCode()+" "+medicament.getPrix());
 		}
 		if(listCombo !=null && !listCombo.isEmpty()){
-			
-			
-			
 			comboMedicament = new JComboBox( listCombo.toArray(new ComboBoxDTO[]{}));
 			comboMedicament.setBounds(180, 50, 250, 20);
-			
+		   
 			comboMedicament.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Integer index=((ComboBoxDTO)comboMedicament.getSelectedItem()).getValue();
@@ -145,7 +144,7 @@ public class CommandeFenetre extends JFrame implements ActionListener{
 			
 			comboMedicament.setEditable(true);
 			AutoCompletion ac = new AutoCompletion(comboMedicament);
-			ac.setStrict(false);
+			ac.setStrict(true);
 			panel_1.add(comboMedicament);
 		}
 		txtDescription = new JTextArea();

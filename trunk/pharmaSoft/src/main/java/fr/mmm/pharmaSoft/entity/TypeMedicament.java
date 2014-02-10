@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class TypeMedicament {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer noTypeMedicament;
 	@Column(name="libelle")
 	private String libelle;

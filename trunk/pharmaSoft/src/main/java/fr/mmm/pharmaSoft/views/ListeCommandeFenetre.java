@@ -155,27 +155,27 @@ public class ListeCommandeFenetre extends JFrame implements ActionListener{
 			     
 			panel_1.add(new JScrollPane(tableau));
 			
-			JPanel panelBtn = new JPanel();
-			panelBtn.setBackground(Color.WHITE);
-			getContentPane().add(panelBtn,BorderLayout.SOUTH);
 			
-			panelBtn.setLayout(new FlowLayout());
-			JButton btnCreer = new JButton("Nouvelle");
-			btnCreer.setBackground(Color.CYAN);
-			//btnCreer.setBounds(150, 50, 112, 23);
-			btnCreer.setActionCommand("fermer");
-			btnCreer.addActionListener(this);
-			panelBtn.add(btnCreer);
-			
-			JButton btnMenuPrincipal = new JButton("Menu Principal");
-			btnMenuPrincipal.setBackground(Color.WHITE);
-			//btnSupprimer.setBounds(150, 150, 112, 23);
-			btnMenuPrincipal.setActionCommand("menuPrincipal");
-			btnMenuPrincipal.addActionListener(this);
-			panelBtn.add(btnMenuPrincipal);
 			
 		}
+		JPanel panelBtn = new JPanel();
+		panelBtn.setBackground(Color.WHITE);
+		getContentPane().add(panelBtn,BorderLayout.SOUTH);
 		
+		panelBtn.setLayout(new FlowLayout());
+		JButton btnCreer = new JButton("Nouvelle");
+		btnCreer.setBackground(Color.CYAN);
+		//btnCreer.setBounds(150, 50, 112, 23);
+		btnCreer.setActionCommand("nouvelle");
+		btnCreer.addActionListener(this);
+		panelBtn.add(btnCreer);
+		
+		JButton btnMenuPrincipal = new JButton("Menu Principal");
+		btnMenuPrincipal.setBackground(Color.WHITE);
+		//btnSupprimer.setBounds(150, 150, 112, 23);
+		btnMenuPrincipal.setActionCommand("menuPrincipal");
+		btnMenuPrincipal.addActionListener(this);
+		panelBtn.add(btnMenuPrincipal);
 	}
 
 	public Commande getCommande() {
@@ -195,7 +195,7 @@ public class ListeCommandeFenetre extends JFrame implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent event) {
-		if(event.getActionCommand().equals("fermer")){
+		if(event.getActionCommand().equals("nouvelle")){
 			CommandeFenetre commandeFenetre = new CommandeFenetre();
 			commandeFenetre.setVisible(Boolean.TRUE);
 			this.dispose();
