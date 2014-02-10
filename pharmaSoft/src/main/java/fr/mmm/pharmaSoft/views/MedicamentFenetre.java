@@ -1,10 +1,11 @@
 package fr.mmm.pharmaSoft.views;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -121,7 +122,7 @@ public class MedicamentFenetre extends JFrame implements ActionListener{
 		lblTypeDeMdicament.setBounds(43, 100, 125, 14);
 		panel_1.add(lblTypeDeMdicament);
 		
-		/*List<TypeMedicament> list=this.typeMedicamentDao.findAll();
+		List<TypeMedicament> list=this.typeMedicamentDao.findAll();
 		List<ComboBoxDTO> listCombo=new ArrayList<ComboBoxDTO>();
 		for (TypeMedicament typeMedicament : list) {
 			listCombo.add(new ComboBoxDTO(typeMedicament.getLibelle(), typeMedicament.getNoTypeMedicament()));
@@ -132,19 +133,10 @@ public class MedicamentFenetre extends JFrame implements ActionListener{
 			comboTypeMedicament = new JComboBox(listCombo.toArray(new ComboBoxDTO[]{}));
 			
 		}
-		*/
+		
 		
 		comboTypeMedicament.setBounds(263, 100, 150, 20);
 		panel_1.add(comboTypeMedicament);
-		
-
-		
-		new JDateComponentFactory();
-		JDatePicker picker = JDateComponentFactory.createJDatePicker(); 
-		picker.setTextEditable(true);
-		picker.setShowYearButtons(true); 
-		((JComponent) picker).setBounds(263, 100, 150, 20);
-		panel_1.add((JComponent)picker);
 		
 		JLabel lblCode = new JLabel("Code du médicament");
 		lblCode.setBounds(43, 150, 125, 14);

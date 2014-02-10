@@ -84,6 +84,17 @@ public class ListeStockFenetre extends JFrame implements ActionListener{
 		
 		List<StockDTO> list=this.stockDao.findAll();
 		
+		JPanel panelBtn = new JPanel();
+		panelBtn.setBackground(Color.WHITE);
+		getContentPane().add(panelBtn,BorderLayout.SOUTH);
+		
+		panelBtn.setLayout(new FlowLayout());
+		JButton btnCreer = new JButton("Nouveau");
+		btnCreer.setBackground(Color.WHITE);
+		//btnCreer.setBounds(150, 50, 112, 23);
+		btnCreer.setActionCommand("creer");
+		btnCreer.addActionListener(this);
+		panelBtn.add(btnCreer);
 		
 		if(list!=null && !list.isEmpty()) {
 			
@@ -112,19 +123,6 @@ public class ListeStockFenetre extends JFrame implements ActionListener{
 			});
 			     
 			panel_1.add(new JScrollPane(tableau));
-			
-			JPanel panelBtn = new JPanel();
-			panelBtn.setBackground(Color.WHITE);
-			getContentPane().add(panelBtn,BorderLayout.SOUTH);
-			
-			panelBtn.setLayout(new FlowLayout());
-			JButton btnCreer = new JButton("Nouveau");
-			btnCreer.setBackground(Color.WHITE);
-			//btnCreer.setBounds(150, 50, 112, 23);
-			btnCreer.setActionCommand("creer");
-			btnCreer.addActionListener(this);
-			panelBtn.add(btnCreer);
-			
 			JButton btnModifier = new JButton("Modifier");
 			btnModifier.setBackground(Color.WHITE);
 			//btnModifier.setBounds(150, 100, 112, 23);
@@ -139,14 +137,17 @@ public class ListeStockFenetre extends JFrame implements ActionListener{
 			btnSupprimer.addActionListener(this);
 			panelBtn.add(btnSupprimer);
 			
-			JButton btnMenuPrincipal = new JButton("Menu Principal");
-			btnMenuPrincipal.setBackground(Color.WHITE);
-			//btnSupprimer.setBounds(150, 150, 112, 23);
-			btnMenuPrincipal.setActionCommand("menuPrincipal");
-			btnMenuPrincipal.addActionListener(this);
-			panelBtn.add(btnMenuPrincipal);
 		}
 		
+		
+		
+		
+		JButton btnMenuPrincipal = new JButton("Menu Principal");
+		btnMenuPrincipal.setBackground(Color.WHITE);
+		//btnSupprimer.setBounds(150, 150, 112, 23);
+		btnMenuPrincipal.setActionCommand("menuPrincipal");
+		btnMenuPrincipal.addActionListener(this);
+		panelBtn.add(btnMenuPrincipal);
 	}
 
 	public Stock getStock() {

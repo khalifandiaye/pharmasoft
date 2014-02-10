@@ -5,7 +5,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +23,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+
+import net.sourceforge.jdatepicker.JDateComponentFactory;
+import net.sourceforge.jdatepicker.JDatePicker;
 
 import org.apache.commons.validator.GenericValidator;
 
@@ -56,7 +62,8 @@ public class StockFenetre extends JFrame implements ActionListener{
 	private StockDao stockDao= new StockDao();
 	private MedicamentDao medicamentDao=new MedicamentDao();
 	private Integer id;
-	private JTextField txtPeremption;
+	private Date datePeremption;
+	JDatePicker picker;
 	
 	/**
 	 * Create the application.
@@ -111,18 +118,20 @@ public class StockFenetre extends JFrame implements ActionListener{
 		
 		List<MedicamentDTO> list=this.medicamentDao.findAll();
 		List<ComboBoxDTO> listCombo=new ArrayList<ComboBoxDTO>();
+		listCombo.add(0, new ComboBoxDTO("", -1));
 		final Map<Integer,String> mapMedic=new HashMap<Integer,String>();
 		for (MedicamentDTO medicament : list) {
 			listCombo.add(new ComboBoxDTO(medicament.getLibelle(), medicament.getNoMedicament()));
 			mapMedic.put(medicament.getNoMedicament(), medicament.getLibelle()
 					+" "+medicament.getLibelleTypeMedicament()+" "+medicament.getCode()+" "+medicament.getPrix());
 		}
+		
 		if(listCombo !=null && !listCombo.isEmpty()){
 			
 			
 			
 			comboMedicament = new JComboBox( listCombo.toArray(new ComboBoxDTO[]{}));
-			comboMedicament.setBounds(263, 50, 150, 20);
+			
 			
 			comboMedicament.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -135,8 +144,11 @@ public class StockFenetre extends JFrame implements ActionListener{
 			AutoCompletion ac = new AutoCompletion(comboMedicament);
 			ac.setStrict(false);
 			panel_1.add(comboMedicament);
+		}else {
+			comboMedicament=new JComboBox();
 		}
-		
+		comboMedicament.setBounds(263, 50, 150, 20);
+		panel_1.add(comboMedicament);
 		txtDescription = new JTextArea();
 		txtDescription.setRows(8);
 		txtDescription.setText("Résumé");
@@ -157,16 +169,35 @@ public class StockFenetre extends JFrame implements ActionListener{
 		lblPeremption.setBounds(43, 150, 125, 14);
 		panel_1.add(lblPeremption);
 		
-		txtPeremption = new JTextField();
-		txtPeremption.setBounds(263, 150, 150, 20);
-		panel_1.add(txtPeremption);
-		txtQuantite.setColumns(10);
+		
+		picker = JDateComponentFactory.createJDatePicker(); 
+		picker.setTextEditable(true);
+		picker.setShowYearButtons(true); 
+		picker.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GregorianCalendar  d=(GregorianCalendar)picker.getModel().getValue();
+				if(d!=null){
+					datePeremption=d.getTime();
+				}
+				
+				
+			}
+		});
+		((JComponent) picker).setBounds(263, 150, 150, 29);
+		
+		
+		panel_1.add((JComponent)picker);
 		
 		//Cas Modification
 		if(this.getId()!=null) {
 			Stock stock= this.stockDao.findByPk(this.getId());
 			txtQuantite.setText(stock.getQuantite().toString());
-			txtPeremption.setText(stock.getDatePeremption().toString());
+			if(stock.getDatePeremption()!=null) {
+				Calendar calendar = GregorianCalendar.getInstance();
+				calendar.setTime(stock.getDatePeremption());
+				picker.getModel().setDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE));
+			}
+			
 			if(stock.getMedicament()!=null){
 				comboMedicament.setEditable(true);
 				comboMedicament.setSelectedItem(new ComboBoxDTO(stock.getMedicament().getLibelle(), stock.getMedicament().getNoMedicament()));
@@ -197,9 +228,9 @@ public class StockFenetre extends JFrame implements ActionListener{
 			}
 			
 			
-			if(!GenericValidator.isBlankOrNull(txtPeremption.getText())){
-				stock.setDatePeremption(new Date());
-			}
+			stock.setDatePeremption(datePeremption);
+			
+			
 			stock=this.stockDao.create(stock);
 		} else if(e.getActionCommand().equals("modifier")){
 			if(this.getId()!=null) {
@@ -213,9 +244,9 @@ public class StockFenetre extends JFrame implements ActionListener{
 					medicament.setNoMedicament(combo.getValue());
 					stock.setMedicament(medicament);
 				}
-				if(!GenericValidator.isBlankOrNull(txtPeremption.getText())){
-					stock.setDatePeremption(new Date());
-				}
+				
+				stock.setDatePeremption(datePeremption);
+				
 				stock=this.stockDao.update(stock);
 			}
 			
