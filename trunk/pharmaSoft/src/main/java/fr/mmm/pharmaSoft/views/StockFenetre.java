@@ -24,8 +24,11 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import net.sourceforge.jdatepicker.AbstractDateModel;
+import net.sourceforge.jdatepicker.DateModel;
 import net.sourceforge.jdatepicker.JDateComponentFactory;
 import net.sourceforge.jdatepicker.JDatePicker;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import org.apache.commons.validator.GenericValidator;
 
@@ -170,7 +173,7 @@ public class StockFenetre extends JFrame implements ActionListener{
 		panel_1.add(lblPeremption);
 		
 		
-		picker = JDateComponentFactory.createJDatePicker(); 
+		picker = JDateComponentFactory.createJDatePicker(JDateComponentFactory.createDateModel(Date.class)); 
 		picker.setTextEditable(true);
 		picker.setShowYearButtons(true); 
 		picker.addActionListener(new ActionListener() {
@@ -196,6 +199,8 @@ public class StockFenetre extends JFrame implements ActionListener{
 				Calendar calendar = GregorianCalendar.getInstance();
 				calendar.setTime(stock.getDatePeremption());
 				picker.getModel().setDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE));
+				((AbstractDateModel<Date>) picker.getModel()).setValue(stock.getDatePeremption());
+				System.out.println(picker.getModel().getValue());
 			}
 			
 			if(stock.getMedicament()!=null){
