@@ -24,6 +24,7 @@ import net.sourceforge.jdatepicker.JDatePicker;
 
 import org.apache.commons.validator.GenericValidator;
 
+import fr.mmm.pharmaSoft.commun.LoadProperties;
 import fr.mmm.pharmaSoft.dao.MedicamentDao;
 import fr.mmm.pharmaSoft.dao.TypeMedicamentDao;
 import fr.mmm.pharmaSoft.dto.ComboBoxDTO;
@@ -100,7 +101,7 @@ public class MedicamentFenetre extends JFrame implements ActionListener{
 		//panel_1.setSize(420, 420);
 		panel_1.setLayout(null);
 		
-		JLabel lblNomDuMdicament = new JLabel("Nom du médicament");
+		JLabel lblNomDuMdicament = new JLabel(LoadProperties.getProperty("medicament.label.nom"));
 		lblNomDuMdicament.setBounds(43, 50, 125, 14);
 		panel_1.add(lblNomDuMdicament);
 		
@@ -109,7 +110,7 @@ public class MedicamentFenetre extends JFrame implements ActionListener{
 		panel_1.add(txtNomMedicament);
 		txtNomMedicament.setColumns(10);
 		
-		JLabel lblPrix = new JLabel("Prix");
+		JLabel lblPrix = new JLabel(LoadProperties.getProperty("medicament.label.prix"));
 		lblPrix.setBounds(43, 200, 125, 14);
 		panel_1.add(lblPrix);
 		
@@ -118,7 +119,7 @@ public class MedicamentFenetre extends JFrame implements ActionListener{
 		panel_1.add(txtPrix);
 		txtPrix.setColumns(10);
 		
-		JLabel lblTypeDeMdicament = new JLabel("Type de médicament");
+		JLabel lblTypeDeMdicament = new JLabel(LoadProperties.getProperty("medicament.label.typeMedicament"));
 		lblTypeDeMdicament.setBounds(43, 100, 125, 14);
 		panel_1.add(lblTypeDeMdicament);
 		
@@ -138,7 +139,7 @@ public class MedicamentFenetre extends JFrame implements ActionListener{
 		comboTypeMedicament.setBounds(263, 100, 150, 20);
 		panel_1.add(comboTypeMedicament);
 		
-		JLabel lblCode = new JLabel("Code du médicament");
+		JLabel lblCode = new JLabel(LoadProperties.getProperty("medicament.label.codeMedicament"));
 		lblCode.setBounds(43, 150, 125, 14);
 		panel_1.add(lblCode);
 		
@@ -147,7 +148,7 @@ public class MedicamentFenetre extends JFrame implements ActionListener{
 		panel_1.add(txtCode);
 		txtCode.setColumns(10);
 		
-		JLabel lblDescription = new JLabel("Description ");
+		JLabel lblDescription = new JLabel(LoadProperties.getProperty("medicament.label.descriptionMedicament"));
 		lblDescription.setBounds(43, 250, 125, 14);
 		panel_1.add(lblDescription);
 		
@@ -177,6 +178,7 @@ public class MedicamentFenetre extends JFrame implements ActionListener{
 		btnEnregistrer.setActionCommand("creer");
 		btnEnregistrer.addActionListener(this);
 		getContentPane().add(btnEnregistrer);
+		System.out.println(LoadProperties.getProperty("medicament.label.nom"));
 	}
 
 	

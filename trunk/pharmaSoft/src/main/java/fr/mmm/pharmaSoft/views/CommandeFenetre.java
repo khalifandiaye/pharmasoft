@@ -37,7 +37,7 @@ import fr.mmm.pharmaSoft.entity.Commande;
 import fr.mmm.pharmaSoft.entity.Medicament;
 import fr.mmm.pharmaSoft.entity.TypeMedicament;
 
-
+import fr.mmm.pharmaSoft.commun.MenuUtils;
 
 
 
@@ -96,6 +96,13 @@ public class CommandeFenetre extends JFrame implements ActionListener{
 		setBounds(100, 100,800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
+		
+		//Create and set up the content pane.
+		MenuUtils demo = new MenuUtils();
+        
+        // We now also set the MenuBar of the Frame to our MenuBar 
+        setJMenuBar(demo.createMenuBar());
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -237,7 +244,7 @@ public class CommandeFenetre extends JFrame implements ActionListener{
 		if(e.getActionCommand().equals("Terminer")) {
 			commande.setDateCommande(new Date());
 			commande=this.commandeDao.create(commande);
-			System.out.println(commande);
+			
 		} 
 		new ListeCommandeFenetre().setVisible(true);
 		this.dispose();
