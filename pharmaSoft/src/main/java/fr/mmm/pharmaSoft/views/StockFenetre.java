@@ -34,6 +34,7 @@ import org.apache.commons.validator.GenericValidator;
 
 import com.jidesoft.swing.AutoCompletion;
 
+import fr.mmm.pharmaSoft.commun.LoadProperties;
 import fr.mmm.pharmaSoft.dao.MedicamentDao;
 import fr.mmm.pharmaSoft.dao.StockDao;
 import fr.mmm.pharmaSoft.dto.ComboBoxDTO;
@@ -100,14 +101,14 @@ public class StockFenetre extends JFrame implements ActionListener{
 		//panel_1.setSize(420, 420);
 		//panel.setLayout(null);
 		
-		JLabel lblcreaMedic = new JLabel("Création d'un médicament");
+		JLabel lblcreaMedic = new JLabel(LoadProperties.getProperty("stock.title"));
 		lblcreaMedic.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 17));
 		panel.add(lblcreaMedic);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
 		getContentPane().add(panel_1);
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cr\u00E9ation / Modification de M\u00E9dicament", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), LoadProperties.getProperty("stock.label.title"), TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		//panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel_1.setBounds(27, 64, 660, 335);
 		//panel_1.setSize(420, 420);
@@ -115,7 +116,7 @@ public class StockFenetre extends JFrame implements ActionListener{
 		
 	
 		
-		JLabel lblNomDuMdicament = new JLabel("Nom du médicament");
+		JLabel lblNomDuMdicament = new JLabel(LoadProperties.getProperty("stock.label.nomMedicament"));
 		lblNomDuMdicament.setBounds(43, 50, 125, 14);
 		panel_1.add(lblNomDuMdicament);
 		
@@ -154,12 +155,12 @@ public class StockFenetre extends JFrame implements ActionListener{
 		panel_1.add(comboMedicament);
 		txtDescription = new JTextArea();
 		txtDescription.setRows(8);
-		txtDescription.setText("Résumé");
+		txtDescription.setText(LoadProperties.getProperty("stock.label.resume"));
 		txtDescription.setBounds(450, 50, 200, 40);
 		txtDescription.setBorder(BorderFactory.createLineBorder(null));
 		panel_1.add(txtDescription);
 		
-		JLabel lblQuantite = new JLabel("Quantité");
+		JLabel lblQuantite = new JLabel(LoadProperties.getProperty("stock.label.quantite"));
 		lblQuantite.setBounds(43, 100, 125, 14);
 		panel_1.add(lblQuantite);
 		
@@ -168,7 +169,7 @@ public class StockFenetre extends JFrame implements ActionListener{
 		panel_1.add(txtQuantite);
 		txtQuantite.setColumns(10);
 		
-		JLabel lblPeremption = new JLabel("Date de péremption");
+		JLabel lblPeremption = new JLabel(LoadProperties.getProperty("stock.label.datePeremption"));
 		lblPeremption.setBounds(43, 150, 125, 14);
 		panel_1.add(lblPeremption);
 		
@@ -209,7 +210,7 @@ public class StockFenetre extends JFrame implements ActionListener{
 			}
 		
 		}
-		JButton btnEnregistrer = new JButton("Enregistrer");
+		JButton btnEnregistrer = new JButton(LoadProperties.getProperty("btn.enregistrer"));
 		btnEnregistrer.setBackground(Color.WHITE);
 		btnEnregistrer.setBounds(27, 420, 112, 23);
 		btnEnregistrer.setActionCommand("creer");

@@ -24,6 +24,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import net.sf.jga.swing.GenericTableModel;
+import fr.mmm.pharmaSoft.commun.LoadProperties;
 import fr.mmm.pharmaSoft.dao.MedicamentDao;
 import fr.mmm.pharmaSoft.dto.MedicamentDTO;
 import fr.mmm.pharmaSoft.entity.Medicament;
@@ -72,14 +73,14 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 		//panel_1.setSize(420, 420);
 		//panel.setLayout(null);
 		
-		JLabel lblcreaCommande = new JLabel("Création d'un médicament");
+		JLabel lblcreaCommande = new JLabel( LoadProperties.getProperty("medicament.label.listeTitle"));
 		lblcreaCommande.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 17));
 		panel.add(lblcreaCommande);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
 		getContentPane().add(panel_1,BorderLayout.CENTER);
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Liste des  M\u00E9dicaments", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), LoadProperties.getProperty("medicament.label.listeTitle"), TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		//panel_1.setBounds(27, 64, 660, 150);
 		panel_1.setLayout(new BorderLayout());
 		
@@ -91,7 +92,7 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 		getContentPane().add(panelBtn,BorderLayout.SOUTH);
 		
 		panelBtn.setLayout(new FlowLayout());
-		JButton btnCreer = new JButton("Nouveau");
+		JButton btnCreer = new JButton(LoadProperties.getProperty("btn.creer"));
 		btnCreer.setBackground(Color.WHITE);
 		//btnCreer.setBounds(150, 50, 112, 23);
 		btnCreer.setActionCommand("creer");
@@ -107,12 +108,12 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 			tabModel.addColumn(Double.class, "Prix");
 			tabModel.addColumn(String.class, "LibelleTypeMedicament");
 			final JTable tableau=new JTable(tabModel, tabModel.getColumnModel());
-			tableau.getColumnModel().getColumn(0).setHeaderValue("Numéro");
-			tableau.getColumnModel().getColumn(1).setHeaderValue("Libellé");
-			tableau.getColumnModel().getColumn(2).setHeaderValue("Code");
-			tableau.getColumnModel().getColumn(3).setHeaderValue("Description");
-			tableau.getColumnModel().getColumn(4).setHeaderValue("Prix");
-			tableau.getColumnModel().getColumn(5).setHeaderValue("Type de Medicament");
+			tableau.getColumnModel().getColumn(0).setHeaderValue( LoadProperties.getProperty("label.numero"));
+			tableau.getColumnModel().getColumn(1).setHeaderValue(LoadProperties.getProperty("label.libelle"));
+			tableau.getColumnModel().getColumn(2).setHeaderValue(LoadProperties.getProperty("medicament.label.codeMedicament"));
+			tableau.getColumnModel().getColumn(3).setHeaderValue(LoadProperties.getProperty("medicament.label.descriptionMedicament"));
+			tableau.getColumnModel().getColumn(4).setHeaderValue(LoadProperties.getProperty("medicament.label.prix"));
+			tableau.getColumnModel().getColumn(5).setHeaderValue(LoadProperties.getProperty("medicament.label.typeMedicament"));
 			
 			tableau.getTableHeader().setBackground(new Color(0, 250, 154));
 			tableau.setPreferredScrollableViewportSize(new Dimension(500, tableau.getRowHeight()*tableau.getRowCount()));
@@ -132,14 +133,14 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 			});
 			     
 			panel_1.add(new JScrollPane(tableau));
-			JButton btnModifier = new JButton("Modifier");
+			JButton btnModifier = new JButton(LoadProperties.getProperty("btn.modifier"));
 			btnModifier.setBackground(Color.WHITE);
 			//btnModifier.setBounds(150, 100, 112, 23);
 			btnModifier.setActionCommand("modifier");
 			btnModifier.addActionListener(this);
 			panelBtn.add(btnModifier);
 			
-			JButton btnSupprimer = new JButton("Supprimer");
+			JButton btnSupprimer = new JButton(LoadProperties.getProperty("btn.supprimer"));
 			btnSupprimer.setBackground(Color.WHITE);
 			//btnSupprimer.setBounds(150, 150, 112, 23);
 			btnSupprimer.setActionCommand("supprimer");
@@ -153,7 +154,7 @@ public class ListeMedicamentFenetre extends JFrame implements ActionListener{
 		
 		
 		
-		JButton btnMenuPrincipal = new JButton("Menu Principal");
+		JButton btnMenuPrincipal = new JButton(LoadProperties.getProperty("btn.menuPrincipal"));
 		btnMenuPrincipal.setBackground(Color.WHITE);
 		//btnSupprimer.setBounds(150, 150, 112, 23);
 		btnMenuPrincipal.setActionCommand("menuPrincipal");
