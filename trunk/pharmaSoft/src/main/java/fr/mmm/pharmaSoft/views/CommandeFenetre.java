@@ -37,6 +37,7 @@ import fr.mmm.pharmaSoft.entity.Commande;
 import fr.mmm.pharmaSoft.entity.Medicament;
 import fr.mmm.pharmaSoft.entity.TypeMedicament;
 
+import fr.mmm.pharmaSoft.commun.LoadProperties;
 import fr.mmm.pharmaSoft.commun.MenuUtils;
 
 
@@ -111,20 +112,20 @@ public class CommandeFenetre extends JFrame implements ActionListener{
 		//panel_1.setSize(420, 420);
 		//panel.setLayout(null);
 		
-		JLabel lblcreaMedic = new JLabel("Commandes");
+		JLabel lblcreaMedic = new JLabel(LoadProperties.getProperty("ventes.title"));
 		lblcreaMedic.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 17));
 		panel.add(lblcreaMedic);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
 		getContentPane().add(panel_1);
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Création d'une commande", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), LoadProperties.getProperty("ventes.creation"), TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		//panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel_1.setBounds(27, 64, 660, 200);
 		//panel_1.setSize(420, 420);
 		panel_1.setLayout(null);
 		
-		JLabel lblNomDuMdicament = new JLabel("Nom du médicament");
+		JLabel lblNomDuMdicament = new JLabel(LoadProperties.getProperty("vente.label.nomMedicament"));
 		lblNomDuMdicament.setBounds(43, 50, 125, 14);
 		panel_1.add(lblNomDuMdicament);
 		
@@ -156,7 +157,7 @@ public class CommandeFenetre extends JFrame implements ActionListener{
 		}
 		txtDescription = new JTextArea();
 		txtDescription.setRows(8);
-		txtDescription.setText("Résumé");
+		txtDescription.setText(LoadProperties.getProperty("vente.label.resume"));
 		txtDescription.setBounds(450, 50, 200, 40);
 		txtDescription.setBorder(BorderFactory.createLineBorder(null));
 		panel_1.add(txtDescription);
@@ -164,7 +165,7 @@ public class CommandeFenetre extends JFrame implements ActionListener{
 		
 		
 		
-		JButton btnEnregistrer = new JButton("Ajouter");
+		JButton btnEnregistrer = new JButton(LoadProperties.getProperty("btn.ajouter"));
 		btnEnregistrer.setBackground(Color.WHITE);
 		btnEnregistrer.setBounds(43, 100, 112, 23);
 		btnEnregistrer.setActionCommand("creer");
@@ -214,7 +215,7 @@ public class CommandeFenetre extends JFrame implements ActionListener{
 		
 		panel2.add(liste);
 		
-		JButton btnSupprimer = new JButton("Supprimer");
+		JButton btnSupprimer = new JButton(LoadProperties.getProperty("btn.supprimer"));
 		btnSupprimer.setBackground(Color.WHITE);
 		btnSupprimer.setBounds(120, 220,110, 23);
 		btnSupprimer.addActionListener(new ActionListener() {
@@ -230,7 +231,7 @@ public class CommandeFenetre extends JFrame implements ActionListener{
 		panel2.add(btnSupprimer);
 		
 		
-		JButton btnTerminer = new JButton("Terminer la commande");
+		JButton btnTerminer = new JButton(LoadProperties.getProperty("btn.terminerCommande"));
 		btnTerminer.setBackground(Color.WHITE);
 		btnTerminer.setBounds(300, 400, 180, 23);
 		btnTerminer.setActionCommand("Terminer");
