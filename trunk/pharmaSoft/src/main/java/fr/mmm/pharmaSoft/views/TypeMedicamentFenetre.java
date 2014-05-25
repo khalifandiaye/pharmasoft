@@ -1,10 +1,12 @@
 package fr.mmm.pharmaSoft.views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +15,10 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import net.java.dev.designgridlayout.DesignGridLayout;
+
+import fr.mmm.pharmaSoft.commun.ImagePanel;
+import fr.mmm.pharmaSoft.commun.LoadProperties;
 import fr.mmm.pharmaSoft.dao.Daos;
 import fr.mmm.pharmaSoft.dao.TypeMedicamentDao;
 import fr.mmm.pharmaSoft.entity.TypeMedicament;
@@ -50,45 +56,67 @@ public class TypeMedicamentFenetre extends JFrame implements ActionListener{
 	 */
 	private void initialize() {
 		
-		this.getContentPane().setBackground(new Color(0, 250, 154));
-		this.setBounds(100, 100,800, 600);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		this.getContentPane().add(panel);
-		panel.setBounds(225, 11, 300, 30);
+//		this.getContentPane().setBackground(new Color(0, 250, 154));
+//		this.setBounds(100, 100,800, 600);
+//		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		this.getContentPane().setLayout(null);
+//		
+//		JPanel panel = new JPanel();
+//		panel.setBackground(Color.WHITE);
+//		this.getContentPane().add(panel);
+//		panel.setBounds(225, 11, 300, 30);
 		//panel_1.setSize(420, 420);
 		//panel.setLayout(null);
 		
+		
+		setSize(1200, 720);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel pnlWest=new ImagePanel(new ImageIcon("images/logo-pharmacie.jpg").getImage());
+		JPanel pnlEast=new ImagePanel(new ImageIcon("images/logo-pharmacie.jpg").getImage());
+		JPanel pnlSouth=new JPanel();
+		JPanel pnlNorth=new ImagePanel(new ImageIcon("images/pharmacienne3.jpg").getImage());
+		
+		 //Au nord
+	    this.getContentPane().add(pnlNorth, BorderLayout.NORTH);
+	    //Au sud
+	    this.getContentPane().add(pnlSouth, BorderLayout.SOUTH);
+	    //À l'ouest
+	    this.getContentPane().add(pnlWest, BorderLayout.WEST);
+	    //À l'est
+	    this.getContentPane().add(pnlEast, BorderLayout.EAST);
+		
+		JPanel pnlcentral=new JPanel();
+	    pnlcentral.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cr\u00E9ation / Modification de M\u00E9dicament", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+	    DesignGridLayout layout = new DesignGridLayout(pnlcentral);
+		
 		JLabel lblcreaMedic = new JLabel("Création d'un type de médicament");
 		lblcreaMedic.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 17));
-		panel.add(lblcreaMedic);
+		pnlNorth.add(lblcreaMedic, BorderLayout.CENTER);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		this.getContentPane().add(panel_1);
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cr\u00E9ation / Modification d'un type de M\u00E9dicament", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(27, 64, 660, 150);
-		panel_1.setLayout(null);
-		
-		JLabel lblTypeMdicament = new JLabel("Libellé");
-		lblTypeMdicament.setBounds(43, 50, 119, 14);
-		panel_1.add(lblTypeMdicament);
-		
+		JLabel lblTypeMdicament = new JLabel(LoadProperties.getProperty("typeMedicament.label.libelle"));
 		textField = new JTextField();
-		textField.setBounds(263, 50, 150, 20);
-		panel_1.add(textField);
-		textField.setColumns(10);
 		
 		JButton btnEnregistrer = new JButton("Enregistrer");
 		btnEnregistrer.setBackground(Color.WHITE);
-		btnEnregistrer.setBounds(27, 220, 112, 23);
+		btnEnregistrer.setActionCommand("creer");
 		btnEnregistrer.addActionListener(this);
 		
+		JButton btnAnnuler = new JButton("Retour");
+		btnAnnuler.setBackground(Color.WHITE);
+		btnAnnuler.addActionListener(this);
+		btnAnnuler.setActionCommand("annuler");
 		
+		layout.row().grid().empty();
+		layout.row().grid().empty();
+
+		layout.row().grid().empty().add(lblTypeMdicament).add(textField,2);
+		layout.row().grid().empty();
+		layout.row().right().add(btnEnregistrer).add(btnAnnuler);
+		this.getContentPane().add(pnlcentral, BorderLayout.CENTER);
 		
+		pnlSouth.setLayout(new BorderLayout());
+		pnlSouth.add(new ImagePanel(new ImageIcon("images/logo-pharmacie2.jpg").getImage()), BorderLayout.WEST);
+		pnlSouth.add(new ImagePanel(new ImageIcon("images/logo-pharmacie2.jpg").getImage()), BorderLayout.EAST);
 		
 		if(this.getIdTypeMed()==null || this.getIdTypeMed()==0){
 		btnEnregistrer.setActionCommand("creer");
@@ -105,16 +133,11 @@ public class TypeMedicamentFenetre extends JFrame implements ActionListener{
 			
 			btnEnregistrer.setActionCommand("modifier");
 		}
-		JButton btnAnnuler = new JButton("Retour");
-		btnAnnuler.setBackground(Color.WHITE);
-		btnAnnuler.setBounds(150, 220, 112, 23);
-		btnAnnuler.addActionListener(this);
-		btnAnnuler.setActionCommand("annuler");
-		this.getContentPane().add(btnAnnuler);
 		
 		
 		
-		this.getContentPane().add(btnEnregistrer);
+		
+
 	}
 
 	public TypeMedicament getTypeMedicament() {

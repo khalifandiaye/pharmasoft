@@ -179,9 +179,9 @@ public class StockFenetre extends JFrame implements ActionListener{
 		picker.setShowYearButtons(true); 
 		picker.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GregorianCalendar  d=(GregorianCalendar)picker.getModel().getValue();
+				Date  d=(Date)picker.getModel().getValue();
 				if(d!=null){
-					datePeremption=d.getTime();
+					datePeremption=d;
 				}
 				
 				

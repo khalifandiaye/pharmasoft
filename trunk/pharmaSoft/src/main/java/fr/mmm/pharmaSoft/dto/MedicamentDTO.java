@@ -1,5 +1,8 @@
 package fr.mmm.pharmaSoft.dto;
 
+import fr.mmm.pharmaSoft.entity.EnumCategorie;
+import fr.mmm.pharmaSoft.entity.EnumListe;
+
 
 
 public class MedicamentDTO {
@@ -14,7 +17,21 @@ public class MedicamentDTO {
 	
 	private String description;
 	
+	private EnumListe liste;
 	
+	private EnumCategorie categorie;
+	
+
+	public EnumListe getListe() {
+		return liste;
+	}
+
+
+
+	public void setListe(EnumListe liste) {
+		this.liste = liste;
+	}
+
 	private Double prix;
 	
 	private String libelleTypeMedicament ;
@@ -91,7 +108,7 @@ public class MedicamentDTO {
 	public String toString() {
 		return "Medicament [noMedicament=" + noMedicament + ", libelle="
 				+ libelle + ", code=" + code + ", description=" + description
-				+ ", prix=" + prix + ",]";
+				+ ", prix=" + prix +", liste=" + liste + "]";
 	}
 
 	public String getLibelleTypeMedicament() {

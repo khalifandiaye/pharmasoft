@@ -1,6 +1,7 @@
 package fr.mmm.pharmaSoft;
 
-import fr.mmm.pharmaSoft.presentation.LanceurMenuMulticolore;
+import fr.mmm.pharmaSoft.views.CommandeFenetre;
+import fr.mmm.pharmaSoft.views.TypeMedicamentFenetre;
 
 /**
  * Hello world!
@@ -17,10 +18,10 @@ public class App
     	//StockFenetre frame = new StockFenetre();
     	//frame.setVisible(true);
     	
-    	//MedicamentFenetre frame = new MedicamentFenetre();
+    	//ProduitFenetre frame = new ProduitFenetre();
     	//ListeCommandeFenetre frame = new ListeCommandeFenetre();
-    	LanceurMenuMulticolore frame= new LanceurMenuMulticolore();
-    	//CommandeFenetre frame = new CommandeFenetre();
+    	//LanceurMenuMulticolore frame= new LanceurMenuMulticolore();
+    	CommandeFenetre frame = new CommandeFenetre();
 		frame.setVisible(true);
     }
     
