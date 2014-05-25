@@ -69,6 +69,8 @@ public class MedicamentDao {
                 .add(Projections.property("medicament.libelle"), "libelle")
                 .add(Projections.property("medicament.code"), "code")
                 .add(Projections.property("medicament.description"), "description")
+                .add(Projections.property("medicament.liste"), "liste")
+                .add(Projections.property("medicament.categorie"), "categorie")
                 .add(Projections.property("medicament.prix"), "prix")
                 .add(Projections.property("typeMedicament.libelle"), "libelleTypeMedicament");
 		criteria.setProjection(projectionList);

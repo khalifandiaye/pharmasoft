@@ -2,6 +2,8 @@ package fr.mmm.pharmaSoft.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,6 +36,39 @@ public class Medicament {
 	
 	@Column(name="prix")
 	private Double prix;
+	
+	@Column(name="posologie")
+	private String posologie;
+	
+	@Column(name="principe")
+	private String principe;
+	
+	@Column(name="expiant")
+	private String expiant;
+	
+	@Column(name="dosage")
+	private String dosage;
+	
+	@Column(name="code_acl")
+	private String codeAcl;
+	
+	@Column(name="code_cip")
+	private String codeCip;
+	
+	 @Enumerated(EnumType.STRING)
+	private EnumListe liste;
+	 
+	 @Enumerated(EnumType.STRING)
+	private EnumCategorie categorie;
+	 
+	 @Enumerated(EnumType.STRING)
+	private EnumModeAdministration modeAdministration;
+	 
+	 @Enumerated(EnumType.STRING)
+	private EnumModeConservation modeConservation;
+	 
+	 @Enumerated(EnumType.STRING)
+	private EnumFormeMedicament formeMedicament;
 	/**
 	 * type de medicament
 	 */
@@ -41,7 +76,7 @@ public class Medicament {
 	private TypeMedicament type;
 	
 	public Medicament(){
-
+		
 	}
 
 	/**
@@ -134,6 +169,14 @@ public class Medicament {
 		return "Medicament [noMedicament=" + noMedicament + ", libelle="
 				+ libelle + ", code=" + code + ", description=" + description
 				+ ", prix=" + prix + ", type=" + type + "]";
+	}
+
+	public EnumCategorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(EnumCategorie categorie) {
+		this.categorie = categorie;
 	}
 	
 	
