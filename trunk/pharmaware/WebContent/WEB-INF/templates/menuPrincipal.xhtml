@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<div style="width: 60%; margin : 0 auto;">
+	<ui:param name="urlPages" value="${request.getContextPath()}/faces/pages" />
+	<ul class="menuTemplate4 decor4_1" license="2c8m1" >
+		<li><a href="#CSS-Menu" class="arrow">Médicament</a>
+			<div class="drop decor4_2" style="width: 200px;">
+					
+					<div>
+						<a href="${urlPages}/medicament/gererMedicament.xhtml">Ajouter une médicament</a><br /> <a href="${urlPages}/medicament/listeMedicament.xhtml">Liste des médicaments</a><br />
+						<a href="#">Rechercher un médicament</a><br /> 
+						
+					</div>
+				<div style='clear: both;'></div>
+			</div>
+		
+		</li>
+		<li class="separator"></li>
+		<li><a href="#Horizontal-Menus" class="arrow">Ventes</a>
+			<div class="drop decor4_2" style="width: 200px;">
+					<div>
+						<a href="#">Ajouter une vente</a><br /> <a href="#">Liste des ventes</a><br />
+						<a href="#">Rechercher une vente</a><br /> 
+						
+					</div>
+				<div style='clear: both;'></div>
+			</div></li>
+		<li class="separator"></li>
+		<li><a href="#CSS">Gestion stock</a></li>
+		<li class="separator"></li>
+		<li><a href="#Horizontal-Menu-CSS" class="arrow">Statisques</a>
+			<div class="drop decor4_2" style="width: 200px;">
+					<div>
+						<a href="#">Ventes journaliers</a><br /> <a href="#">Ventes Mensuelles</a><br />
+						<a href="#">Commandes</a><br /> 
+						
+					</div>
+				<div style='clear: both;'></div>
+			</div>
+		
+		</li>
+		<li class="separator"></li>
+		<li><a href="#Web-Menu" class="arrow">Administration</a>
+			<div class="drop decor4_2 " style="width: 200px;">
+					<div>
+						<a href="${urlPages}/administration/listeEmploye.xhtml">Utilisateurs</a>
+						<br /> <a href="${urlPages}/administration/listeTypeMedicament.xhtml">Type de médicament</a>
+						<br /> <a href="${urlPages}/administration/listeFormeMedicament.xhtml">Forme</a>
+						<br /> <a href="${urlPages}/administration/listeModeConsMedicament.xhtml">Mode de Consommation</a>
+						<br /> <a href="${urlPages}/administration/listeModeAdminMedicament.xhtml">Mode d'administration</a>
+						<br /> <a href="${urlPages}/administration/listeCategorieMedicament.xhtml">Catégorie</a>
+						<br /> <a href="${urlPages}/administration/listeListeMedicament.xhtml">Liste</a>
+					</div>
+					
+			</div></li>
+		<li class="separator"></li>
+		<li><a href="#Web-Menus" class="arrow">Aide</a>
+			<div class="drop decor4_2" style="width: 200px;">
+					<div>
+						<a href="#">A propos</a><br /> <a href="#"> Vente ?</a>
+						<br /> <a href="#"> Commande ?</a>
+					</div>
+					
+				
+			</div></li>
+	</ul>
+	</div>
+	<br/>
+</ui:composition>

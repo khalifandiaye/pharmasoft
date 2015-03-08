@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head/>
+<h:body>
+	<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<p:fieldset legend="Création d'un type médicament" style="margin-bottom:20px">
+        			<h:outputLink  value="gererTypeMedicament.xhtml" >
+        				Créer un nouveau type médicament
+        			</h:outputLink>
+    			</p:fieldset>
+			
+			
+				<p:dataTable var="typeMedicament" value="#{listeTypeMedicamentBean.typeMedicaments}">
+					<p:column headerText="Identifiant">
+						<h:outputText value="#{typeMedicament.noTypeMedicament}" />
+					</p:column>
+
+
+					<p:column headerText="Libellé du type de médicament">
+						<h:outputText value="#{typeMedicament.libelle}" />
+					</p:column>
+
+					<p:column headerText="Actions">
+					
+						<table>
+						
+							<tr>
+								<td>
+									<h:link outcome="gererTypeMedicament.xhtml?idTypeMedicament=#{typeMedicament.noTypeMedicament}" value="Modifier">
+										<p:graphicImage style="float:left;" value="/images/modifier.png"/>
+									</h:link>
+								</td>
+								<td>
+									<h:commandLink action="#{listeTypeMedicamentBean.supprimer(typeMedicament.noTypeMedicament)}" value="Supprimer">
+										<p:graphicImage style="float:left;" value="/images/supprimer.png"/>
+									</h:commandLink>
+								</td>
+							</tr>
+						</table>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>
