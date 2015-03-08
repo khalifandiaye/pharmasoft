@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		
+		
+	</h:head>
+<h:body>
+
+<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml" >
+	
+	<ui:define name="content">
+		<style type="text/css">
+		.columnMedic{
+			width:180px;
+		}
+		.columnPrix{
+			width:100px;
+		}
+		</style>
+	<p:messages autoUpdate="true" />
+		<h:form name="medicForm" >
+		
+		<f:event type="preRenderView" listener="#{medicamentBean.init()}" />
+		<p:panel header="Création / Modification d'utiliateur" style="width:60%" >
+		
+		<p:panelGrid columns="2">
+			<p:column>
+				<p:outputLabel value="Médicament:" for="medicament" />
+        		<p:autoComplete id="medicament" value="#{venteBean.medicament}" completeMethod="#{venteBean.completeMethod}" 
+                        var="medic" itemLabel="#{medic.libelle}" itemValue="#{medic}" minQueryLength="3" converter="medicamentConverter"  forceSelection="true" >
+                 	<p:ajax event="itemSelect"  update="description" />       
+                 </p:autoComplete>
+ 
+			</p:column>
+			
+			<p:column>
+				<p:fieldset legend="Description du médicament" id="description">
+					<h:outputText value="#{venteBean.medicament.libelle} #{venteBean.medicament.categorie} #{venteBean.medicament.forme} #{venteBean.medicament.prix}"></h:outputText>
+				</p:fieldset>
+			</p:column>
+		
+		</p:panelGrid>
+			
+		<p:commandButton value="Ajouter" action="#{venteBean.ajouterMedicament(venteBean.medicament.noMedicament, venteBean.medicament.libelle, venteBean.medicament.prix)}"  update="listMedic">
+		</p:commandButton>
+		
+		<h:dataTable value="#{venteBean.mapMedic.keySet().toArray()}" var="medic" id="listMedic" columnClasses="columnMedic, columnPrix" border="1">
+         	 <h:column >    				 				
+            	#{fn:split(medic, ' ')[1]} 
+<!--             	<%= medic.split(" ")[1] %> -->
+        	 </h:column>
+         	<h:column>    				 				
+            	#{venteBean.mapMedic[medic]} x #{fn:split(medic, ' ')[2] } 
+        	 </h:column>
+         </h:dataTable>
+         #{venteBean.vente.montantTotal}dfdf
+         <h:outputText value="#{venteBean.vente.montantTotal}"></h:outputText>
+		</p:panel>
+		</h:form>
+	    
+	</ui:define>
+	
+</ui:composition>
+</h:body>
+</html>

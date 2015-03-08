@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head/>
+<h:body>
+	<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<p:fieldset legend="Création d'un mode de consommation de médicament" style="margin-bottom:20px">
+        			<h:outputLink  value="gererModeConsMedicament.xhtml" >
+        				Créer un nouveau mode de consommation de médicament
+        			</h:outputLink>
+    			</p:fieldset>
+			
+			
+				<p:dataTable var="modeConsMedicament" value="#{listeModeConsMedicamentBean.modeConsMedicaments}">
+					<p:column headerText="Identifiant">
+						<h:outputText value="#{modeConsMedicament.noModeConsMedicament}" />
+					</p:column>
+
+
+					<p:column headerText="Libellé du mode de consommation de médicament">
+						<h:outputText value="#{modeConsMedicament.libelle}" />
+					</p:column>
+
+					<p:column headerText="Actions">
+					
+						<table>
+						
+							<tr>
+								<td>
+									<h:link outcome="gererModeConsMedicament.xhtml?idModeConsMedicament=#{modeConsMedicament.noModeConsMedicament}" value="Modifier">
+										<p:graphicImage style="float:left;" value="/images/modifier.png"/>
+									</h:link>
+								</td>
+								<td>
+									<h:commandLink action="#{listeModeConsMedicamentBean.supprimer(modeConsMedicament.noModeConsMedicament)}" value="Supprimer">
+										<p:graphicImage style="float:left;" value="/images/supprimer.png"/>
+									</h:commandLink>
+								</td>
+							</tr>
+						</table>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

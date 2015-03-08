@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head/>
+<h:body>
+<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml" >
+	
+	<ui:define name="content">
+		<h:form name="userForm">
+		
+		<f:event type="preRenderView" listener="#{categorieMedicamentBean.init()}" />
+		<h:inputHidden  value="#{categorieMedicamentBean.categorieMedicament.noCategorieMedicament}"/>
+		<p:panel header="Création / Modification d'un categorie de médicament" style="width:60%" >
+			<p:panelGrid columns="2" style="border:0" columnClasses="colonneSimple">
+			
+			<h:outputText value="Libellé"/>
+			<p:inputText value="#{categorieMedicamentBean.categorieMedicament.libelle}" ></p:inputText>
+			<p:commandButton value="Enregistrer" action="#{categorieMedicamentBean.enregistrer()}"></p:commandButton>
+			</p:panelGrid>
+		
+		</p:panel>
+		</h:form>
+	    
+	</ui:define>
+	
+</ui:composition>
+</h:body>
+</html>

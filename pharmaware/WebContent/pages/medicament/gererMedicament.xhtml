@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head/>
+<h:body>
+<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml" >
+	
+	<ui:define name="content">
+	<p:messages autoUpdate="true" />
+		<h:form name="medicForm" >
+		
+		<f:event type="preRenderView" listener="#{medicamentBean.init()}" />
+		<p:panel header="Création / Modification d'utiliateur" style="width:60%" >
+		<h:inputHidden  value="#{medicamentBean.medicament.noMedicament}" rendered="#{medicamentBean.medicament.noMedicament != null}"/>
+			<p:panelGrid columns="4" style="border:0" columnClasses="colonneSimple">
+			<h:outputText value="Libellé" />
+			<p:inputText value="#{medicamentBean.medicament.libelle}"></p:inputText>
+			<h:outputText value="Description"/>
+			<p:inputText value="#{medicamentBean.medicament.description}"></p:inputText>
+			
+			<h:outputText value="Code"/>
+			<p:inputText value="#{medicamentBean.medicament.code}"></p:inputText>
+			
+			<h:outputText value="Code ACL"/>
+			<p:inputText value="#{medicamentBean.medicament.codeAcl}"></p:inputText>
+			
+			<h:outputText value="Code CIP"/>
+			<p:inputText value="#{medicamentBean.medicament.codeCip}"></p:inputText>
+			
+			<h:outputText value="Liste"/>
+			<h:selectOneMenu value="#{medicamentBean.medicament.liste.noListeMedicament}" >
+	            <f:selectItem itemLabel="Choisissez un élément" itemValue="" />
+	            <f:selectItems value="#{medicamentBean.listeListeMedicament}" var="liste" itemLabel="#{liste.libelle}" itemValue="#{liste.noListeMedicament}" />
+       		 </h:selectOneMenu>
+			
+			<h:outputText value="Forme du médicament"/>
+			<h:selectOneMenu value="#{medicamentBean.medicament.formeMedicament.noFormeMedicament}" >
+	            <f:selectItem itemLabel="Choisissez un élément" itemValue="" />
+	            <f:selectItems value="#{medicamentBean.listeForme}" var="forme" 
+                       itemLabel="#{forme.libelle}" itemValue="#{forme.noFormeMedicament}"/>
+       		 </h:selectOneMenu>
+			
+			<h:outputText value="Type du médicament"/>
+			<h:selectOneMenu id="type" value="#{medicamentBean.medicament.type.noTypeMedicament}" >
+	            <f:selectItem itemLabel="Choisissez un élément" itemValue="" />
+	            <f:selectItems value="#{medicamentBean.listeTypeMedicaments}" var="type" 
+                       itemLabel="#{type.libelle}" itemValue="#{type.noTypeMedicament}"/>
+       		 </h:selectOneMenu>
+       		 			
+			<h:outputText value="Catégorie"/>
+			<h:selectOneMenu value="#{medicamentBean.medicament.categorie.noCategorieMedicament}" >
+	            <f:selectItem itemLabel="Choisissez un élément" itemValue="" />
+	            <f:selectItems value="#{medicamentBean.listeCategorie}" var="cat" 
+                       itemLabel="#{cat.libelle}" itemValue="#{cat.noCategorieMedicament}"/>
+       		 </h:selectOneMenu>
+			
+			<h:outputText value="Dosage"/>
+			<p:inputText value="#{medicamentBean.medicament.dosage}"></p:inputText>
+			
+			<h:outputText value="Expiant"/>
+			<p:inputText value="#{medicamentBean.medicament.expiant}"></p:inputText>
+			
+			<h:outputText value="Prix"/>
+			<p:inputText value="#{medicamentBean.medicament.prix}"></p:inputText>
+			
+			<h:outputText value="Mode administration"/>
+			<h:selectOneMenu value="#{medicamentBean.medicament.modeAdministration.noModeAdminMedicament}" >
+	            <f:selectItem itemLabel="Choisissez un élément" itemValue="" />
+	            <f:selectItems value="#{medicamentBean.listeModeAdmin}" var="mode" 
+                       itemLabel="#{mode.libelle}"  itemValue="#{mode.noModeAdminMedicament}"/>
+       		 </h:selectOneMenu>
+			
+			<h:outputText value="Mode conservation"/>
+			<h:selectOneMenu value="#{medicamentBean.medicament.modeConservation.noModeConsMedicament}" >
+	            <f:selectItem itemLabel="Choisissez un élément" itemValue="" />
+	            <f:selectItems value="#{medicamentBean.listeModeConserv}" var="mode1" 
+                       itemLabel="#{mode1.libelle}" itemValue="#{mode1.noModeConsMedicament}"/>
+       		 </h:selectOneMenu>
+			
+			<h:outputText value="Posologie"/>
+			<p:inputText value="#{medicamentBean.medicament.posologie}"></p:inputText>
+			
+			<h:outputText value="Principe actif"/>
+			<p:inputText value="#{medicamentBean.medicament.principe}"></p:inputText>
+			
+			
+			</p:panelGrid>
+		<p:commandButton value="Enregistrer" action="#{medicamentBean.enregistrer()}" >
+			
+		</p:commandButton>
+		</p:panel>
+		</h:form>
+	    
+	</ui:define>
+	
+</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head/>
+<h:body>
+<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml" >
+	
+	<ui:define name="content">
+		<h:form name="userForm">
+		<f:event type="preRenderView" listener="#{employeBean.init()}" />
+		<p:panel header="Création / Modification d'utiliateur" style="width:60%" >
+		<h:inputHidden  value="#{employeBean.employe.noEmploye}" rendered="#{employeBean.employe.noEmploye != null}"/>
+			<p:panelGrid columns="2" style="border:0" columnClasses="colonneSimple">
+			<h:outputText value="Nom" />
+			<p:inputText value="#{employeBean.employe.nom}"></p:inputText>
+			<h:outputText value="Prénom"/>
+			<p:inputText value="#{employeBean.employe.prenom}"></p:inputText>
+			<h:outputText value="Identifiant"/>
+			<p:inputText value="#{employeBean.employe.username}"></p:inputText>
+			<h:outputText value="Mot de passe" rendered="#{(employeBean.employe.password ==null) or (employeBean.employe.password == '')}"/>
+			<p:password value="#{employeBean.employe.password}" rendered="#{(employeBean.employe.password ==null) or (employeBean.employe.password == '')}"></p:password>
+			
+			<h:outputText value="Profil" />
+			<p:selectOneMenu  value="#{employeBean.employe.profil}" >  
+			    <f:selectItem itemValue="" itemLabel="choisir un profil" /> 
+			    <f:selectItem itemValue="vendeur" itemLabel="Vendeur" /> 
+			    <f:selectItem itemValue="pharmacien" itemLabel="Pharmacien" /> 
+			    <f:selectItem itemValue="administrateur" itemLabel="Administrateur" /> 
+			</p:selectOneMenu>
+			<p:commandButton value="Enregistrer" action="#{employeBean.enregistrer()}"></p:commandButton>
+			</p:panelGrid>
+		
+		</p:panel>
+		</h:form>
+	    
+	</ui:define>
+	
+</ui:composition>
+</h:body>
+</html>
