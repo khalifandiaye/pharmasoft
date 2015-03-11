@@ -48,7 +48,7 @@
 		
 		</p:panelGrid>
 			
-		<p:commandButton value="Ajouter" action="#{venteBean.ajouterMedicament(venteBean.medicament.noMedicament, venteBean.medicament.libelle, venteBean.medicament.prix)}"  update="listMedic">
+		<p:commandButton value="Ajouter" action="#{venteBean.ajouterMedicament(venteBean.medicament.noMedicament, venteBean.medicament.libelle, venteBean.medicament.prix)}"  update="@all">
 		</p:commandButton>
 		
 		<h:dataTable value="#{venteBean.mapMedic.keySet().toArray()}" var="medic" id="listMedic" columnClasses="columnMedic, columnPrix" border="1">
@@ -60,7 +60,7 @@
             	#{venteBean.mapMedic[medic]} x #{fn:split(medic, ' ')[2] } 
         	 </h:column>
          </h:dataTable>
-         #{venteBean.vente.montantTotal}dfdf
+         
          <h:outputText value="#{venteBean.vente.montantTotal}"></h:outputText>
 		</p:panel>
 		</h:form>
